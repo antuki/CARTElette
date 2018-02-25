@@ -1,4 +1,4 @@
-﻿# CARTElette
+# CARTElette
 
 Le découpage des territoires français, en particulier les communes, n'est pas un phénomène immuable. Chaque année certaines communes changent de codes, ou bien de nom, fusionnent ou encore se divisent. Certains périmètres supra-communaux changent également, comme celui des cantons qui a été récemment redéfini. C'est à l'Insee que revient le suivi de ces changements afin d'établir chaque année le code officiel géographique (COG).
 
@@ -10,4 +10,18 @@ Il est également très important de souligner que les couches cartographiques c
 
 * COG2017 : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
 * COG antérieurs : [GEOFLA](http://professionnels.ign.fr/geofla)
+
+Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
+
+
+Pour installer le package `CARTElette` et le charger dans R :
+ 
+     devtools::install_github("antuki/CARTElette/CARTElette@RPackage")
+     library(CARTElette)
+
+Un exemple en chargeant la couche "sf" des zones d'emplois françaises :
+     ZE_sf <- loadMap(COG=2016,nivsupra="ZE2010")
+     par(mar=c(0,0,0,0))
+     plot(sf::st_geometry(ZE_sf))
+
 
