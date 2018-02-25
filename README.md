@@ -19,7 +19,8 @@ Pour installer le package `CARTElette` et le charger dans R :
      devtools::install_github("antuki/CARTElette/CARTElette@RPackage")
      library(CARTElette)
 
-Un exemple en chargeant la couche "sf" des zones d'emplois françaises :
+Un exemple en chargeant la couche "sf" des zones d'emplois françaises : 
+
      ZE_sf <- loadMap(COG=2016,nivsupra="ZE2010")
      par(mar=c(0,0,0,0))
      plot(sf::st_geometry(ZE_sf))
