@@ -2,7 +2,7 @@
 #' @name loadMap
 #' @description Charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
 #' @param destfile indique le "path" où sera enregistrée la couche cartographique téléchargée (4 fichiers shp,shx,prj et dbf). Par défaut vaut tempfile() (répertoire temporaire)
-#' @param COG indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à 2017. Par défaut, vaut annee_ref.
+#' @param COG indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à 2018. Par défaut, vaut annee_ref.
 #' @param nivsupra est une chaîne de caractères qui indique le nom du niveau supra-communale souhaité. Plus précisément :
 #' - "DEP" : départements
 #' - "REG" : régions
@@ -17,9 +17,9 @@
 #' @details
 #' La fonction renvoie une couche cartographique de type "sf"
 #'
-#' Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2017. \cr
+#' Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2018. \cr
 #'
-#' Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015, 2016 et 2017. \cr
+#' Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015, 2016, 2017 et 2018. \cr
 #' @references
 #' \itemize{
 #' \item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
