@@ -109,10 +109,8 @@ creer_couche <- function(maille){
   st_write(couche, paste0(maille,"_",annee,"_CARTElette.shp"))
 }
 
-#liste_mailles <- c("DEP","EPCI","ARR" ,"CV","ZE2010","UU2010","AU2010","BV2012","REG")
-liste_mailles <- c("REG")
+liste_mailles <- c("DEP","EPCI","ARR" ,"CV","ZE2010","UU2010","AU2010","BV2012","REG")
 for(maille in liste_mailles){
   creer_couche(maille)
 }
-
 
