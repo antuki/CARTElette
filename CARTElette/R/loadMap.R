@@ -34,7 +34,7 @@
 #'  par(mar=c(0,0,0,0))
 #'  plot(sf::st_geometry(reg_sf))
 #' }
-#' 
+#'
 #' #' ## Exemple 2
 #' \dontrun{
 #' ## Traitement long à tourner (télécharge les fichiers dans tempdir())
@@ -44,7 +44,7 @@
 #'  plot(sf::st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 #'  plot(sf::st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 #' }
-#' 
+#'
 #' @encoding UTF-8
 
 
@@ -56,18 +56,18 @@ loadMap <- function(destfile=tempdir(),COG=annee_ref,nivsupra,enlever_PLM=TRUE,d
     download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.prj"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.prj"),method="auto",mode="wb")
     download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shp"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),method="auto",mode="wb")
     download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shx"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shx"),method="auto",mode="wb")
-    
-    
+
+
     couche <- sf::st_read(dsn=paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),stringsAsFactors = F)
-    
-    if(nivsupra="COM" & enlever_PLM & COG>=2019){
+
+    if(nivsupra=="COM" & enlever_PLM & COG>=2019){
       if(COG>=2019){
         couche <- couche %>%
           filter(substr(INSEE_COM,1,3)!="751" & substr(INSEE_COM,1,4)!="6938" & substr(INSEE_COM,1,3)!="132")
       }
     }
-    
+
     return(couche)
-    
+
   }
 

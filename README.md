@@ -8,7 +8,7 @@ Il s'agit désormais de créer des couches cartographiques (communales et supra-
 
 Il est également très important de souligner que les couches cartographiques constituées ici sont réalisées à partir des couches publiées par l'IGN et sont modifiées par un programme R (déplacement des DOM afin de constituer des couches à visée statistique).
 
-* COG2017 et 2018 : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
+* COG2017 et postérieurs : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
 * COG antérieurs : [GEOFLA](http://professionnels.ign.fr/geofla)
 
 Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
