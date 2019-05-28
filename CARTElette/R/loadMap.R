@@ -29,7 +29,7 @@
 #' @examples
 #' ## Exemple 1
 #' \dontrun{
-#' ## Traitement long à tourner (télécharge les fichiers dans tempdir())
+#' ## Traitement long a tourner (telecharge les fichiers dans tempdir())
 #'  reg_sf <- loadMap(COG=2016,nivsupra="REG")
 #'  par(mar=c(0,0,0,0))
 #'  plot(sf::st_geometry(reg_sf))
@@ -37,7 +37,7 @@
 #'
 #' #' ## Exemple 2
 #' \dontrun{
-#' ## Traitement long à tourner (télécharge les fichiers dans tempdir())
+#' ## Traitement long a tourner (telecharge les fichiers dans tempdir())
 #'  com_sf_sansPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
 #'  com_sf_avecPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
 #'  par(mar=c(0,0,0,0))
@@ -46,6 +46,9 @@
 #' }
 #'
 #' @encoding UTF-8
+#' @importFrom dplyr %>% filter
+#' @importFrom utils download.file
+#'
 
 
 loadMap <- function(destfile=tempdir(),COG=annee_ref,nivsupra,enlever_PLM=TRUE,donnees_insee=F){
