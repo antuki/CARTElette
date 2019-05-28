@@ -13,6 +13,7 @@
 #' - "UU2010" : unités urbaines 2010
 #' - "AU2010" : aires urbaines 2010
 #' - "BV2012" : bassins de vie 2012
+#' @param enlever_PLM vaut TRUE si on souhaite enlever de la carte les arrondissements municipaux de Paris, Lyon et Marseille si nivsupra="COM (fonctionne pour les millésimes postérieurs à 2019 en raison de modification des fichiers IGN). Par défaut, vaut annee_ref.
 #' @param donnees_insee vaut TRUE si les données manipulées sont produites par l'Insee. En effet, quelques rares modifications communales (la défusion des communes Loisey et Culey au 1er janvier 2014 par exemple) ont été prises en compte dans les bases de données communales de l'Insee plus tard que la date officielle.
 #' @details
 #' La fonction renvoie une couche cartographique de type "sf"
@@ -27,10 +28,23 @@
 #' @export
 #' @examples
 #' ## Exemple 1
-#' ## Do not run (downloads files to your tempdir())
-#' # reg_sf <- loadMap(COG=2016,nivsupra="REG")
-#' # par(mar=c(0,0,0,0))
-#' # plot(sf::st_geometry(reg_sf))
+#' \dontrun{
+#' ## Traitement long à tourner (télécharge les fichiers dans tempdir())
+#'  reg_sf <- loadMap(COG=2016,nivsupra="REG")
+#'  par(mar=c(0,0,0,0))
+#'  plot(sf::st_geometry(reg_sf))
+#' }
+#' 
+#' #' ## Exemple 2
+#' \dontrun{
+#' ## Traitement long à tourner (télécharge les fichiers dans tempdir())
+#'  com_sf_sansPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
+#'  com_sf_avecPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
+#'  par(mar=c(0,0,0,0))
+#'  plot(sf::st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+#'  plot(sf::st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+#' }
+#' 
 #' @encoding UTF-8
 
 
