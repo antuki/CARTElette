@@ -40,7 +40,7 @@
 
 positionner_DOM_glisser <- function(objet, nivsupra=colnames(objet)[1]){
 
-  fr <- readRDS("data/shape_FR.RDS")
+  #fr <- readRDS("data/shape_FR.RDS")
 
   if(nivsupra=="REG"){
     fr_971 <- objet %>% filter(REG=="01")
