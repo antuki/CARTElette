@@ -1,0 +1,9 @@
+navbar:
+  left:
+  - text: Introduction à CARTElette
+    href: articles/CARTElette.html
+  - text: Documentation des fonctions
+    href: reference/index.html
+  - text: Nouveautés
+    href: news/index.html
+

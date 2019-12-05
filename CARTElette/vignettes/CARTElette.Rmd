@@ -1,0 +1,160 @@
+---
+title: "Apprendre les principales fonctionnalités de CARTElette"
+author: "antuki"
+output: rmarkdown::html_vignette
+fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction à CARTElette
+
+
+Nous allons balayer dans cette vignette les principales fonctionnalités du package `CARTElette`. 
+
+Le découpage des territoires français, en particulier les communes, n'est pas un phénomène immuable. Chaque année certaines communes changent de codes, ou bien de nom, fusionnent ou encore se divisent. Certains périmètres supra-communaux changent également, comme celui des cantons qui a été récemment redéfini. C'est à l'Insee que revient le suivi de ces changements afin d'établir chaque année le code officiel géographique (COG).
+
+Ce répertoire vient en complément du package R [antuki/COGugaison](https://github.com/antuki/COGugaison) qui a pour objectif de manipuler des données communales produites à différents millésimes et de les agréger à différents niveaux supra-communaux. 
+
+Il s'agit désormais de créer des couches cartographiques (communales et supra-communales) qui correspondent à la situation du découpage des territoires français (communes et niveaux supra-communaux, France et Outre-mer) au 01 janvier de chaque année (date de référence du code officiel géographique).
+
+Il est également très important de souligner que les couches cartographiques constituées ici sont réalisées à partir des couches publiées par l'IGN et sont modifiées par un programme R (déplacement des DOM afin de constituer des couches à visée statistique).
+
+* COG2017 et postérieurs : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
+* COG antérieurs : [GEOFLA](http://professionnels.ign.fr/geofla)
+
+Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
+
+
+Pour installer le package `CARTElette` et le charger dans R :
+
+```{r, fig.show='hold'}
+#devtools::install_github("antuki/CARTElette/CARTElette@RPackage")
+library(CARTElette)
+```
+
+##  Charger une couche cartographique dans R
+
+Il vous est possible de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités. 
+
+Les millésimes posibles sont de 2015 à l'année en cours.
+
+Les niveaux géographiques possibles sont : 
+
+- "DEP" : départements
+- "REG" : régions
+- "EPCI" : EPCI au 01/01/20XX
+- "ARR" : arrondissements au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX
+- "ZE2010" : zones d'emploi 2010
+- "UU2010" : unités urbaines 2010
+- "AU2010" : aires urbaines 2010
+- "BV2012" : bassins de vie 2012
+
+La fonction renvoie une couche cartographique de type "sf" après avoir téléchargé le fichier sur votre disque (pas défaut dans un répertoire temporaire).
+
+```{r, fig.show='hold'}
+reg_sf <- charger_carte(COG=2016,nivsupra="REG")
+par(mar=c(0,0,0,0))
+plot(sf::st_geometry(reg_sf))
+```
+
+
+Il est possible de charger ou non les arrondissements municipaux grâce à l'option `enlever_PLM`. 
+
+```{r, fig.show='hold', eval = FALSE}
+com_sf_sansPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
+ com_sf_avecPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
+ par(mar=c(0,0,0,0))
+ library(sf)
+ library(dplyr)
+```
+
+Avec les arrondissements : 
+```{r, fig.show='hold', eval = FALSE}
+ plot(st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+```
+
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF2.png" width="300">
+
+Sans les arrondissements : 
+```{r, fig.show='hold', eval = FALSE}
+plot(st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+```
+
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF1.png" width="300">
+
+ 
+
+
+##  Repositionner les DOM grâce à une grille
+
+Il vous est possible de modifier la position souhaitée des DOM à partir d'une grille géographique. 
+
+```{r, fig.show='hold', eval = FALSE}
+positions <- positionner_DOM_grille()
+```
+
+
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_grille.png" width="100%">
+
+Cette technique a l'avantage d'**aligner les DOM de manière exacte** contrairement à la technique du "glissage" ci-dessous qui rend le positionnement plus approximatif. 
+
+##  Repositionner les DOM en les glissant
+
+Il vous est possible de modifier la position souhaitée des DOM en les glissant à partir d'une interface graphique.
+
+```{r, fig.show='hold', eval = FALSE}
+ze <- charger_carte(COG=2019,nivsupra="ZE2010")
+positions <- positionner_DOM_glisser(objet=ze)
+positions
+```
+
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser.png" width="100%">
+
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser_2.png" width="100%">
+
+Cette technique a l'avantage de fournir **un aperçu en direct du nouveau positionnement des DOM**   contrairement à la technique de la "grille" ci-dessus qui ne le permet pas.
+
+
+##  Déplacer les DOM
+
+Une fois les positions des DOM choisies grâce aux fonctions précédentes ou en indiquant vous-mêmes une liste de coordonnées, vous pouvez modifier une couche cartographique de type sf en indiquant ces positions. 
+
+**Exemple 1** : En choisissant précisément la position des DOM 
+
+```{r, fig.show='hold'}
+ze <- charger_carte(COG=2019,nivsupra="ZE2010")
+#positions <- positionner_DOM_glisser(objet=ze)
+#positions <- positionner_DOM_grille()
+positions <- list(c(87279.52,6701636.96),c(204282.6,6497512.2),c(95610.91,6295414.72),c( 1015730,6093224),c(823583.9,6154353.7))
+ze_final <- deplacer_DOM(objet = ze, positions = positions)
+par(mar=c(0,0,0,0))
+plot(sf::st_geometry(ze_final))
+```
+
+**Exemple 2** : En choissant la position des DOM à partir de paramètres par défaut proposés par le package
+
+
+```{r, fig.show='hold'}
+ze_final_2 <- deplacer_DOM(objet = ze, positions_type="topleft")
+par(mar=c(0,0,0,0))
+plot(sf::st_geometry(ze_final_2))
+```
+
+**Exemple 3** : En changeant les zooms des DOM et même en pouvant s'amuser à les faire pivoter !
+
+```{r, fig.show='hold'}
+reg <- charger_carte(COG=2019,nivsupra="REG")
+reg_final <- deplacer_DOM(objet = reg, positions_type = "topleft",rotations=c(pi/2,pi,pi/2,pi,0),zooms=c(2,1,1,1,1))
+par(mar=c(0,0,0,0))
+plot(sf::st_geometry(reg_final))
+```
+
+
+
+
+Bonne découverte...!
+

@@ -1,5 +1,5 @@
 #' @title Charger la couche cartographique adaptée à vos données
-#' @name loadMap
+#' @name charger_carte
 #' @description Charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
 #' @param destfile indique le "path" où sera enregistrée la couche cartographique téléchargée (4 fichiers shp,shx,prj et dbf). Par défaut vaut tempfile() (répertoire temporaire)
 #' @param COG indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à 2019. Par défaut, vaut annee_ref.
@@ -30,7 +30,7 @@
 #' ## Exemple 1
 #' \dontrun{
 #' ## Traitement long a tourner (telecharge les fichiers dans tempdir())
-#'  reg_sf <- loadMap(COG=2016,nivsupra="REG")
+#'  reg_sf <- charger_carte(COG=2016,nivsupra="REG")
 #'  par(mar=c(0,0,0,0))
 #'  plot(sf::st_geometry(reg_sf))
 #' }
@@ -38,11 +38,13 @@
 #' #' ## Exemple 2
 #' \dontrun{
 #' ## Traitement long a tourner (telecharge les fichiers dans tempdir())
-#'  com_sf_sansPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
-#'  com_sf_avecPLM <- loadMap(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
+#'  com_sf_sansPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
+#'  com_sf_avecPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
 #'  par(mar=c(0,0,0,0))
-#'  plot(sf::st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
-#'  plot(sf::st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+#'  library(sf)
+#'  library(dplyr)
+#'  plot(st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
+#'  plot(st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 #' }
 #'
 #' @encoding UTF-8
@@ -51,19 +53,20 @@
 #'
 
 
-loadMap <- function(destfile=tempdir(),COG=annee_ref,nivsupra,enlever_PLM=TRUE,donnees_insee=F){
-    shpOrigin="IGN"
-    string_insee <- ifelse(donnees_insee & COG==2015 & nivsupra=="COM","_insee","")
-    url <- paste0("https://raw.githubusercontent.com/antuki/CARTElette/master/couches_carto/",shpOrigin,"/COG",COG,"/")
-    download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.dbf"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.dbf"),method="auto",mode="wb")
-    download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.prj"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.prj"),method="auto",mode="wb")
-    download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shp"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),method="auto",mode="wb")
-    download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shx"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shx"),method="auto",mode="wb")
-
-
-    couche <- sf::st_read(dsn=paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),stringsAsFactors = F)
-
-    if(nivsupra=="COM" & enlever_PLM & COG>=2019){
+charger_carte <- function(destfile=tempdir(),COG=annee_ref,nivsupra,enlever_PLM=TRUE,donnees_insee=F){
+  shpOrigin="IGN"
+  string_insee <- ifelse(donnees_insee & COG==2015 & nivsupra=="COM","_insee","")
+  url <- paste0("https://raw.githubusercontent.com/antuki/CARTElette/master/couches_carto/",shpOrigin,"/COG",COG,"/")
+  download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.dbf"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.dbf"),method="auto",mode="wb")
+  download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.prj"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.prj"),method="auto",mode="wb")
+  download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shp"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),method="auto",mode="wb")
+  download.file(paste0(url,nivsupra,"_",COG,string_insee,"_CARTElette.shx"),destfile = paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shx"),method="auto",mode="wb")
+  
+  
+  couche <- sf::st_read(dsn=paste0(destfile,"/",nivsupra,"_",COG,"_CARTElette.shp"),stringsAsFactors = F)
+  
+  
+  if(nivsupra=="COM" & enlever_PLM & COG>=2019){
       if(COG>=2019){
         couche <- couche %>%
           filter(substr(INSEE_COM,1,3)!="751" & substr(INSEE_COM,1,4)!="6938" & substr(INSEE_COM,1,3)!="132")
