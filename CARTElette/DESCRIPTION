@@ -2,7 +2,7 @@ Package: CARTElette
 Type: Package
 Title: Création de couches cartographiques à partir du code officiel géographique (COG) et des couches IGN
 Version: 1.0.0
-Authors@R: c(person(family="antuki", role = c("cre","aut"),email="kim.antunez@laposte.net"))
+Authors@R: c(person(family="antuki", role = c("cre","aut"),email="kim.antunez@ensae.fr"))
 Description: Ce package permet de charger dans R les couches cartographiques françaises adaptées à vos données (millésime + niveau géographique adapté à un certain code officiel géographique).
 License: GPL (>= 2) | file LICENSE
 Encoding: UTF-8
@@ -10,9 +10,23 @@ LazyData: true
 RoxygenNote: 6.1.1
 URL: http://github.com/antuki/CARTElette/CARTElette
 BugReports: http://github.com/antuki/CARTElette/issues
-Suggests: 
-    COGugaison,
+Depends: 
+    R (>= 3.5.0)
 Imports:
     dplyr,
     sf, 
-    utils
+    utils,
+    COGugaison,
+    leaflet, 
+    mapview,
+    mapedit,
+    shiny,
+    knitr,
+    leafem,
+    stringr,
+    htmltools,
+    leafpm,
+    miniUI,
+    graphics,
+    grid
+VignetteBuilder: knitr
