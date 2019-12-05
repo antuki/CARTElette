@@ -27,8 +27,9 @@
 
 positionner_DOM_grille <- function(){
 
+  grid <- readRDS("CARTElette/data/grille_france.RDS")
   #grid <- readRDS("data/grille_france.RDS")
-  grid <- grille_france
+  #grid <- grille_france
 
 
   epsg_affichage <- leafletCRS(crsClass = 'L.Proj.CRS', code = 'EPSG:2154',
