@@ -14,7 +14,7 @@
 #' positions
 #' }
 #' @encoding UTF-8
-#' @importFrom leaflet leaflet addTiles fitBounds labelOptions highlightOptions leafletOptions
+#' @importFrom leaflet leaflet addTiles fitBounds labelOptions highlightOptions leafletOptions leafletCRS
 #' @importFrom dplyr filter mutate arrange select
 #' @importFrom sf st_transform st_centroid st_coordinates st_drop_geometry st_bbox st_crs
 #' @importFrom leafem addFeatures
@@ -30,8 +30,8 @@ positionner_DOM_grille <- function(){
   #grid <- readRDS("CARTElette/data/grille_france.RDS")
   #grid <- readRDS("data/grille_france.RDS")
   #grid <- grille_france
-  chemin <- system.file("data","grille_france.RDS", package = "CARTElette")
-  grid <- readRDS(chemin)
+   chemin <- system.file("extdata","grille_france.RDS", package = "CARTElette")
+   grid <- readRDS(chemin)
 
 
   epsg_affichage <- leafletCRS(crsClass = 'L.Proj.CRS', code = 'EPSG:2154',
