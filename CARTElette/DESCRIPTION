@@ -30,3 +30,4 @@ Imports:
     graphics,
     grid
 VignetteBuilder: knitr
+Remotes: antuki/COGugaison
