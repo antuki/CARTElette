@@ -13,7 +13,7 @@ Il est également très important de souligner que les couches cartographiques c
 * COG2017 et postérieurs : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
 * COG antérieurs : [GEOFLA](http://professionnels.ign.fr/geofla)
 
-Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
+Un package R est aussi adossé à ce repository. Il permet de *charger la couche cartographique* adaptée à vos données en indiquant l'*année* du code officiel géographique (COG) ainsi que le *niveau géographique* (communal ou supra-communal) souhaités ainsi que de *déplacer les départements d'outre-mer*.
 
 
 Pour installer le package `CARTElette` et le charger dans R :

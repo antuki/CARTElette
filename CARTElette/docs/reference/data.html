@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Indiquer la position souhaitée des DOM à partir d'une grille géographique — positionner_DOM_grille • CARTElette</title>
+<title>Données contenues dans le package — data • CARTElette</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,9 @@
 
 
 
-<meta property="og:title" content="Indiquer la position souhaitée des DOM à partir d'une grille géographique — positionner_DOM_grille" />
-<meta property="og:description" content="Indiquer la position souhaitée des DOM à partir d'une grille géographique" />
+<meta property="og:title" content="Données contenues dans le package — data" />
+<meta property="og:description" content="La couche cartographique simplifiée des communes de l'année &quot;annee_ref&quot;
+est contenue dans ce package." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -113,51 +114,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Indiquer la position souhaitée des DOM à partir d'une grille géographique</h1>
-    <small class="dont-index">Source: <a href='https://github.com/antuki/CARTElette/blob/master/R/positionner_DOM_grille.R'><code>R/positionner_DOM_grille.R</code></a></small>
-    <div class="hidden name"><code>positionner_DOM_grille.Rd</code></div>
+    <h1>Données contenues dans le package</h1>
+    <small class="dont-index">Source: <a href='https://github.com/antuki/CARTElette/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Indiquer la position souhaitée des DOM à partir d'une grille géographique</p>
+    <p>La couche cartographique simplifiée des communes de l'année "annee_ref"
+est contenue dans ce package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>positionner_DOM_grille</span>(<span class='kw'>projection</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>projection</th>
-      <td><p>projection de la couche cartographique à modifier. vaut NULL si la projection souhaitée est WGS84 ("+proj=longlat +datum=WGS84 +no_defs"). Sinon peut être devinée en faisant sf::st_crs(couche_sf)$proj4string</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>La fonction renvoie une liste de coordonnées pour les futurs centroïdes</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    
-<ul>
-<li><p><a href='http://professionnels.ign.fr/adminexpress'>couches cartographiques Admin-Express (IGN)</a></p></li>
-<li><p><a href='http://professionnels.ign.fr/geofla'>couches cartographiques GEOFLA (IGN)</a></p></li>
-</ul>
+    <pre class="usage"><span class='no'>COMMUNES</span></pre>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>positions</span> <span class='kw'>&lt;-</span> <span class='fu'>positionner_DOM_grille</span>()
-<span class='no'>positions</span>
-}</div></pre>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p><code>sf</code></p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
     </ul>
 
   </div>

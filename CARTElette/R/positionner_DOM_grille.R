@@ -1,6 +1,7 @@
 #' @title Indiquer la position souhaitée des DOM à partir d'une grille géographique
 #' @name positionner_DOM_grille
 #' @description Indiquer la position souhaitée des DOM à partir d'une grille géographique
+#' @param projection projection de la couche cartographique à modifier. vaut NULL si la projection souhaitée est WGS84 ("+proj=longlat +datum=WGS84 +no_defs"). Sinon peut être devinée en faisant sf::st_crs(couche_sf)$proj4string
 #' @details
 #' La fonction renvoie une liste de coordonnées pour les futurs centroïdes
 #' @references
@@ -25,19 +26,24 @@
 
 
 
-positionner_DOM_grille <- function(){
+positionner_DOM_grille <- function(projection = NULL){
 
-  #grid <- readRDS("CARTElette/data/grille_france.RDS")
-  #grid <- readRDS("data/grille_france.RDS")
-  #grid <- grille_france
-   chemin <- system.file("extdata","grille_france.RDS", package = "CARTElette")
-   grid <- readRDS(chemin)
+  if(is.null(projection)){
+    projection <- "+proj=longlat +datum=WGS84 +no_defs"
+  }
+    #chemin <- system.file("extdata","grille_france.RDS", package = "CARTElette")
+    #grid <- readRDS(chemin)
+
+   chemin <- system.file("extdata","grille_france.rda", package = "CARTElette")
+  load(chemin)
+  grid <- grille_france
+
+    epsg_affichage <- leafletCRS(crsClass = 'L.Proj.CRS', code = 'EPSG:2154',
+                                 proj4def = "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs",
+                                 resolutions = c(65536, 32768, 16384, 8192, 4096, 2048) #ne marche que pour lambert 93 ?
+    )
 
 
-  epsg_affichage <- leafletCRS(crsClass = 'L.Proj.CRS', code = 'EPSG:2154',
-                               proj4def = "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs",
-                               resolutions = c(65536, 32768, 16384, 8192, 4096, 2048)
-  )
 
 
   (lf <- leaflet(
@@ -65,15 +71,19 @@ positionner_DOM_grille <- function(){
     title = "Selectionnez les 5 DOM."
   )
 
-  suppressWarnings({ #st_transform apres filter ?
-    grid_small<- grid %>% filter(id %in% cinq_dom$id)  %>%  st_transform("+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs") %>% st_centroid() %>%   mutate(X = st_coordinates(.)[,1], Y = st_coordinates(.)[,2]) %>%
+  suppressWarnings({
+
+    if(is.null(projection)){
+      grid_small<- grid
+    } else{
+      grid_small<- grid %>%  st_transform(projection)
+    }
+
+    grid_small<- grid_small %>% filter(id %in% cinq_dom$id) %>% st_centroid() %>%   mutate(X = st_coordinates(.)[,1], Y = st_coordinates(.)[,2]) %>%
       arrange(match(id, cinq_dom$id)) %>% st_drop_geometry() %>% select(-id)
 
     grid_small.list <- as.list(as.data.frame(t(grid_small)))
   })
-
-
-
 
   if(length(grid_small.list)!=5){
     stop("Il faut DU PREMIER COUP sélectionner EXACTEMENT 5 rectangles associés aux 5 DOM.")

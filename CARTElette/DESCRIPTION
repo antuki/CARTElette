@@ -1,7 +1,7 @@
 Package: CARTElette
 Type: Package
 Title: Création de couches cartographiques à partir du code officiel géographique (COG) et des couches IGN
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(person(family="antuki", role = c("cre","aut"),email="kim.antunez@ensae.fr"))
 Description: Ce package permet de charger dans R les couches cartographiques françaises adaptées à vos données (millésime + niveau géographique adapté à un certain code officiel géographique).
 License: GPL (>= 2) | file LICENSE
@@ -28,6 +28,7 @@ Imports:
     leafpm,
     miniUI,
     graphics,
-    grid
+    grid,
+    rmapshaper
 VignetteBuilder: knitr
 Remotes: antuki/COGugaison

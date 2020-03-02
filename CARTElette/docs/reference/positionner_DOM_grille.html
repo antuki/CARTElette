@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -122,8 +122,16 @@
     <p>Indiquer la position souhaitée des DOM à partir d'une grille géographique</p>
     </div>
 
-    <pre class="usage"><span class='fu'>positionner_DOM_grille</span>()</pre>
+    <pre class="usage"><span class='fu'>positionner_DOM_grille</span>(<span class='kw'>projection</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>projection</th>
+      <td><p>projection de la couche cartographique à modifier. vaut NULL si la projection souhaitée est WGS84 ("+proj=longlat +datum=WGS84 +no_defs"). Sinon peut être devinée en faisant sf::st_crs(couche_sf)$proj4string</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -146,6 +154,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
