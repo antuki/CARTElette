@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -123,7 +123,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>charger_carte</span>(<span class='kw'>destfile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='kw'>COG</span> <span class='kw'>=</span> <span class='no'>annee_ref</span>, <span class='no'>nivsupra</span>,
-  <span class='kw'>enlever_PLM</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>donnees_insee</span> <span class='kw'>=</span> <span class='no'>F</span>)</pre>
+  <span class='kw'>enlever_PLM</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>donnees_insee</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>geometrie_simplifiee</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +135,7 @@
     </tr>
     <tr>
       <th>COG</th>
-      <td><p>indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à 2019. Par défaut, vaut annee_ref.</p></td>
+      <td><p>indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à annee_ref si geometrie_simplifiee vaut TRUE et seulement annee_ref si geometrie_simplifiee vaut FALSE. Par défaut, vaut annee_ref.</p></td>
     </tr>
     <tr>
       <th>nivsupra</th>
@@ -157,6 +158,10 @@
       <th>donnees_insee</th>
       <td><p>vaut TRUE si les données manipulées sont produites par l'Insee. En effet, quelques rares modifications communales (la défusion des communes Loisey et Culey au 1er janvier 2014 par exemple) ont été prises en compte dans les bases de données communales de l'Insee plus tard que la date officielle.</p></td>
     </tr>
+    <tr>
+      <th>geometrie_simplifiee</th>
+      <td><p>vaut TRUE si on souhaite utiliser les données contenues dans le package sans avoir à les télécharger, ceci au prix d'avoir des données aux géographies simplifiées. Par ailleurs, seul le dernier millésime sera disponible.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -177,16 +182,26 @@
     <pre class="examples"><div class='input'><span class='co'>## Exemple 1</span>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## Traitement long a tourner (telecharge les fichiers dans tempdir())</span>
- <span class='no'>reg_sf</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span><span class='kw'>=</span><span class='fl'>2016</span>,<span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"REG"</span>)
+ <span class='no'>reg_sf</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span><span class='kw'>=</span><span class='fl'>2019</span>,<span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"REG"</span>, <span class='kw'>geometrie_simplifiee</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>))
  <span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_geometry.html'>st_geometry</a></span>(<span class='no'>reg_sf</span>))
 }
 
-<span class='co'>#' ## Exemple 2</span>
+<span class='co'>## Exemple 2</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='co'>## Utilise les donnÃ©es directement prÃ©sentes dans le package</span>
+ <span class='no'>reg_sf_simplifiee</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"REG"</span>, <span class='kw'>geometrie_simplifiee</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+ <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>))
+ <span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(<span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_geometry.html'>st_geometry</a></span>(<span class='no'>reg_sf_simplifiee</span>))
+}
+
+<span class='co'>#' ## Exemple 3</span>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## Traitement long a tourner (telecharge les fichiers dans tempdir())</span>
- <span class='no'>com_sf_sansPLM</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span><span class='kw'>=</span><span class='fl'>2019</span>,<span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"COM"</span>,<span class='kw'>enlever_PLM</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
- <span class='no'>com_sf_avecPLM</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span><span class='kw'>=</span><span class='fl'>2019</span>,<span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"COM"</span>,<span class='kw'>enlever_PLM</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+ <span class='no'>com_sf_sansPLM</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span> <span class='kw'>=</span> <span class='fl'>2019</span>, <span class='kw'>nivsupra</span> <span class='kw'>=</span> <span class='st'>"COM"</span>,
+ <span class='kw'>enlever_PLM</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>geometrie_simplifiee</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+ <span class='no'>com_sf_avecPLM</span> <span class='kw'>&lt;-</span> <span class='fu'>charger_carte</span>(<span class='kw'>COG</span> <span class='kw'>=</span> <span class='fl'>2019</span>, <span class='kw'>nivsupra</span><span class='kw'>=</span><span class='st'>"COM"</span>,
+ <span class='kw'>enlever_PLM</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>geometrie_simplifiee</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>))
  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>sf</span>)
  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)

@@ -7,7 +7,7 @@
 \usage{
 deplacer_DOM(objet, nivsupra = colnames(objet)[1],
   positions_type = c("topleft"), positions = NULL, rotations = rep(0,
-  5), zooms = rep(1, 5))
+  5), zooms = rep(1, 5), projection = st_crs(objet)$proj4string)
 }
 \arguments{
 \item{objet}{est un fond de carte de la France (métropolitaine et 5 DOM) de type sf. Les niveaux géographiques possibles sont ceux du package CARTElette c'est-à-dire :
@@ -40,6 +40,8 @@ deplacer_DOM(objet, nivsupra = colnames(objet)[1],
 \item{rotations}{vecteur de 5 angles au format trigonométrique (pi/2 pour 90°...) qui correspondent aux rotations souhaitées pour les DOM (à indiquer dans l'ordre :  Guadeloupe, Martinique, Guyane, Réunion et Mayotte). Par défaut vaut rep(0,5) (pas de rotation).}
 
 \item{zooms}{vecteur de 5 zooms qui correspondent aux grossissements souhaités pour les DOM (à indiquer dans l'ordre :  Guadeloupe, Martinique, Guyane, Réunion et Mayotte). Par défaut vaut rep(1,5) (pas de zoom).}
+
+\item{projection}{projection de la couche cartographique à modifier. vaut NULL si la projection souhaitée est WGS84 ("+proj=longlat +datum=WGS84 +no_defs"). Sinon peut être devinée en faisant sf::st_crs(couche_sf)$proj4string}
 }
 \description{
 Modifier une couche cartographique de type sf en indiquant la position souhaitée des DOM
@@ -52,22 +54,23 @@ La fonction renvoie un objet de type sf
 # Exemple 1 : choisir prÃ©cisÃ©ment la position des DOM
 ze <- charger_carte(COG=2019,nivsupra="ZE2010")
 #positions <- positionner_DOM_glisser(objet=ze)
-#positions <- positionner_DOM_grille()
-positions <- list(c(87279.52,6701636.96),c(204282.6,6497512.2),c(95610.91,6295414.72),c( 1015730,6093224),c(823583.9,6154353.7))
+#positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
+positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),
+                 c( -6.195586, 45.084970), c(4.948049, 41.193759))
 ze_final <- deplacer_DOM(objet = ze, positions = positions)
 par(mar=c(0,0,0,0))
 plot(sf::st_geometry(ze_final))
 
 # Exemple 2 : choisir des positions de DOM par dÃ©faut
-ze_final_2 <- deplacer_DOM(objet = ze, positions_type="topleft")
-par(mar=c(0,0,0,0))
+ze_final_2 <- deplacer_DOM(objet = ze, positions_type = "topleft")
+par(mar = c(0,0,0,0))
 plot(sf::st_geometry(ze_final_2))
 
 # Exemple 3 : changer les zooms des DOM et les faire pivoter
-reg <- charger_carte(COG=2019,nivsupra="REG")
-reg_final <- deplacer_DOM(objet = reg, positions_type = "topleft",rotations=c(pi/2,pi,pi/2,pi,0),zooms=c(2,1,1,1,1))
-par(mar=c(0,0,0,0))
-plot(sf::st_geometry(reg_final))
+ze_final_3 <- deplacer_DOM(objet = ze, positions_type = "topleft",
+rotations = c(90,180,90,-90,0), zooms = c(1,1,2,0.5,1))
+par(mar = c(0,0,0,0))
+plot(sf::st_geometry(ze_final_3))
 }
 }
 \references{

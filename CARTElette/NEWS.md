@@ -11,7 +11,18 @@
 
 * `loadMap()` est renommée `charger_carte()`
 * nouvelles fonctions : `positionner_DOM_glisser()`, `positionner_DOM_grille()` et `deplacer_DOM()`
-	
-## correction de bugs / optimisation du code
 
+# CARTElette 1.0.1
+
+## nouveautés
+
+### mars 2020
+
+* modification du COG2019 avec les nouveaux fichiers de l'IGN avec France metro + DOM en WGS84
+* ajout d'une carte COMMUNES intégrée au package R et modification de  `charger_carte()` avec le paramètre  `geometry_simplifiee` pour tenir compte de cette nouveauté
+* modification des fonctions pour tenir compte de plusieurs possibilités de projections suite à la nouvelle couche en WGS84
+* amélioration de  `transformation_shp()` pour pouvoir faire des rotations et zooms sur un ensemble de géométries et pas uniquement sur un polygone
+
+
+## correction de bugs / optimisation du code
 

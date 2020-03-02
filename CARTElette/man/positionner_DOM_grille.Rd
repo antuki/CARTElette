@@ -5,7 +5,10 @@
 \alias{positionner_DOM_grille}
 \title{Indiquer la position souhaitée des DOM à partir d'une grille géographique}
 \usage{
-positionner_DOM_grille()
+positionner_DOM_grille(projection = NULL)
+}
+\arguments{
+\item{projection}{projection de la couche cartographique à modifier. vaut NULL si la projection souhaitée est WGS84 ("+proj=longlat +datum=WGS84 +no_defs"). Sinon peut être devinée en faisant sf::st_crs(couche_sf)$proj4string}
 }
 \description{
 Indiquer la position souhaitée des DOM à partir d'une grille géographique

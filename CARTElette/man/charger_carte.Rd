@@ -6,12 +6,13 @@
 \title{Charger la couche cartographique adaptée à vos données}
 \usage{
 charger_carte(destfile = tempdir(), COG = annee_ref, nivsupra,
-  enlever_PLM = TRUE, donnees_insee = F)
+  enlever_PLM = TRUE, donnees_insee = FALSE,
+  geometrie_simplifiee = FALSE)
 }
 \arguments{
 \item{destfile}{indique le "path" où sera enregistrée la couche cartographique téléchargée (4 fichiers shp,shx,prj et dbf). Par défaut vaut tempfile() (répertoire temporaire)}
 
-\item{COG}{indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à 2019. Par défaut, vaut annee_ref.}
+\item{COG}{indique l'année de COG de la table communale considérée. (exemple 2017). Années possibles : de 2015 à annee_ref si geometrie_simplifiee vaut TRUE et seulement annee_ref si geometrie_simplifiee vaut FALSE. Par défaut, vaut annee_ref.}
 
 \item{nivsupra}{est une chaîne de caractères qui indique le nom du niveau supra-communale souhaité. Plus précisément :
 - "DEP" : départements
@@ -27,6 +28,8 @@ charger_carte(destfile = tempdir(), COG = annee_ref, nivsupra,
 \item{enlever_PLM}{vaut TRUE si on souhaite enlever de la carte les arrondissements municipaux de Paris, Lyon et Marseille si nivsupra="COM (fonctionne pour les millésimes postérieurs à 2019 en raison de modification des fichiers IGN). Par défaut, vaut annee_ref.}
 
 \item{donnees_insee}{vaut TRUE si les données manipulées sont produites par l'Insee. En effet, quelques rares modifications communales (la défusion des communes Loisey et Culey au 1er janvier 2014 par exemple) ont été prises en compte dans les bases de données communales de l'Insee plus tard que la date officielle.}
+
+\item{geometrie_simplifiee}{vaut TRUE si on souhaite utiliser les données contenues dans le package sans avoir à les télécharger, ceci au prix d'avoir des données aux géographies simplifiées. Par ailleurs, seul le dernier millésime sera disponible.}
 }
 \description{
 Charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
@@ -42,16 +45,26 @@ Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivant
 ## Exemple 1
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- reg_sf <- charger_carte(COG=2016,nivsupra="REG")
+ reg_sf <- charger_carte(COG=2019,nivsupra="REG", geometrie_simplifiee = FALSE)
  par(mar=c(0,0,0,0))
  plot(sf::st_geometry(reg_sf))
 }
 
-#' ## Exemple 2
+## Exemple 2
+\dontrun{
+## Utilise les donnÃ©es directement prÃ©sentes dans le package
+ reg_sf_simplifiee <- charger_carte(nivsupra="REG", geometrie_simplifiee = TRUE)
+ par(mar=c(0,0,0,0))
+ plot(sf::st_geometry(reg_sf_simplifiee))
+}
+
+#' ## Exemple 3
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- com_sf_sansPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
- com_sf_avecPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
+ com_sf_sansPLM <- charger_carte(COG = 2019, nivsupra = "COM",
+ enlever_PLM = TRUE, geometrie_simplifiee = FALSE)
+ com_sf_avecPLM <- charger_carte(COG = 2019, nivsupra="COM",
+ enlever_PLM = FALSE, geometrie_simplifiee = FALSE)
  par(mar=c(0,0,0,0))
  library(sf)
  library(dplyr)

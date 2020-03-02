@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -99,17 +99,20 @@
 <li>COG antérieurs : <a href="http://professionnels.ign.fr/geofla">GEOFLA</a>
 </li>
 </ul>
-<p>Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l’année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités</p>
+<p>Un package R est aussi adossé à ce repository. Il permet de <em>charger la couche cartographique</em> adaptée à vos données en indiquant l’<em>année</em> du code officiel géographique (COG) ainsi que le <em>niveau géographique</em> (communal ou supra-communal) souhaités ainsi que de <em>déplacer les départements d’outre-mer</em>.</p>
 <p>Pour installer le package <code>CARTElette</code> et le charger dans R :</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#devtools::install_github("antuki/CARTElette/CARTElette@RPackage")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(CARTElette)</a></code></pre></div>
-<pre><code>## Afin de mieux connaitre les utilisateurs des packages COGugaison et CARTElette et de mieux repondre a vos besoins, merci de repondre a cette rapide enquete en ligne :
-## https://antuki.github.io/2019/11/08/opinion_package/</code></pre>
 </div>
 <div id="charger-une-couche-cartographique-dans-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#charger-une-couche-cartographique-dans-r" class="anchor"></a>Charger une couche cartographique dans R</h2>
-<p>Il vous est possible de charger la couche cartographique adaptée à vos données en indiquant l’année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités.</p>
+<p>Il vous est possible de charger la couche cartographique adaptée au niveau géographique (communal ou supra-communal) souhaité. Ces données sont <strong>directement intégrées au package R</strong> et ont donc, pour une question de taille de fichier, <strong>une topologie simplifiée</strong>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">reg_sf_simplifiee &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">nivsupra =</span> <span class="st">"REG"</span>, <span class="dt">geometrie_simplifiee =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(reg_sf_simplifiee))</a></code></pre></div>
+<p><img src="CARTElette_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p>Il vous est possible de charger davantage de données. En particulier, il vous est possible de préciser l’année du code officiel géographique (COG). Ces données possèdent une <strong>topologie précise</strong> mais doivent par conséquent <strong>être téléchargées</strong>, par défaut dans un dossier temporaire, ce qui nécessite une connexion internet.</p>
 <p>Les millésimes posibles sont de 2015 à l’année en cours.</p>
 <p>Les niveaux géographiques possibles sont :</p>
 <ul>
@@ -124,21 +127,21 @@
 <li>“BV2012” : bassins de vie 2012</li>
 </ul>
 <p>La fonction renvoie une couche cartographique de type “sf” après avoir téléchargé le fichier sur votre disque (pas défaut dans un répertoire temporaire).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">reg_sf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2016</span>,<span class="dt">nivsupra=</span><span class="st">"REG"</span>)</a></code></pre></div>
-<pre><code>## Reading layer `REG_2016_CARTElette' from data source `C:\Users\Kim Antunez\AppData\Local\Temp\RtmpEdBkrJ\REG_2016_CARTElette.shp' using driver `ESRI Shapefile'
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">reg_sf &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG =</span> <span class="dv">2019</span>, <span class="dt">nivsupra =</span> <span class="st">"REG"</span>, <span class="dt">geometrie_simplifiee =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## Reading layer `REG_2019_CARTElette' from data source `C:\Users\Kim Antunez\AppData\Local\Temp\RtmpAXB6Zw\REG_2019_CARTElette.shp' using driver `ESRI Shapefile'
 ## Simple feature collection with 18 features and 2 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: 99217.1 ymin: 5988964 xmax: 1242417 ymax: 7110480
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+## bbox:           xmin: -5.141277 ymin: 40.28462 xmax: 9.559961 ymax: 51.08899
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(reg_sf))</a></code></pre></div>
-<p><img src="CARTElette_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p><img src="CARTElette_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>Il est possible de charger ou non les arrondissements municipaux grâce à l’option <code>enlever_PLM</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">com_sf_sansPLM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"COM"</span>,<span class="dt">enlever_PLM=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"> com_sf_avecPLM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"COM"</span>,<span class="dt">enlever_PLM=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"> <span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">com_sf_sansPLM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG =</span> <span class="dv">2019</span>, <span class="dt">nivsupra =</span> <span class="st">"COM"</span>, <span class="dt">enlever_PLM =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"> com_sf_avecPLM &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG =</span> <span class="dv">2019</span>, <span class="dt">nivsupra =</span> <span class="st">"COM"</span>, <span class="dt">enlever_PLM =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"> <span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"> <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"> <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a></code></pre></div>
 <p>Avec les arrondissements :</p>
@@ -151,8 +154,8 @@
 <div id="repositionner-les-dom-grâce-à-une-grille" class="section level2">
 <h2 class="hasAnchor">
 <a href="#repositionner-les-dom-gr%C3%A2ce-%C3%A0-une-grille" class="anchor"></a>Repositionner les DOM grâce à une grille</h2>
-<p>Il vous est possible de modifier la position souhaitée des DOM à partir d’une grille géographique.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">positions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/positionner_DOM_grille.html">positionner_DOM_grille</a></span>()</a></code></pre></div>
+<p>Il vous est possible de modifier la position souhaitée des DOM à partir d’une grille géographique. Indiquez dans <code>projection</code> la projection du fond de carte que vous souhaitez modifier. Elle s’obtient grâce à <code>st_crs(couche_sf)$proj4string</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">positions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/positionner_DOM_grille.html">positionner_DOM_grille</a></span>(<span class="dt">projection =</span> <span class="kw">st_crs</span>(reg_sf)<span class="op">$</span>proj4string)</a></code></pre></div>
 <p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_grille.png" width="100%"></p>
 <p>Cette technique a l’avantage d’<strong>aligner les DOM de manière exacte</strong> contrairement à la technique du “glissage” ci-dessous qui rend le positionnement plus approximatif.</p>
 </div>
@@ -160,9 +163,23 @@
 <h2 class="hasAnchor">
 <a href="#repositionner-les-dom-en-les-glissant" class="anchor"></a>Repositionner les DOM en les glissant</h2>
 <p>Il vous est possible de modifier la position souhaitée des DOM en les glissant à partir d’une interface graphique.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ze &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"ZE2010"</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">positions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/positionner_DOM_glisser.html">positionner_DOM_glisser</a></span>(<span class="dt">objet=</span>ze)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">ze &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG =</span> <span class="dv">2019</span>, <span class="dt">nivsupra =</span> <span class="st">"ZE2010"</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">positions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/positionner_DOM_glisser.html">positionner_DOM_glisser</a></span>(<span class="dt">objet =</span> ze)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">positions</a></code></pre></div>
+<pre><code>$`1`
+[1] -5.074931 46.920490
+
+$`2`
+[1] -6.768008 49.571175
+
+$`3`
+[1] -2.65836 45.08238
+
+$`4`
+[1] -6.195586 45.084970
+
+$`5`
+[1]  4.948049 41.193759</code></pre>
 <p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser.png" width="100%"></p>
 <p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser_2.png" width="100%"></p>
 <p>Cette technique a l’avantage de fournir <strong>un aperçu en direct du nouveau positionnement des DOM</strong> contrairement à la technique de la “grille” ci-dessus qui ne le permet pas.</p>
@@ -172,39 +189,33 @@
 <a href="#d%C3%A9placer-les-dom" class="anchor"></a>Déplacer les DOM</h2>
 <p>Une fois les positions des DOM choisies grâce aux fonctions précédentes ou en indiquant vous-mêmes une liste de coordonnées, vous pouvez modifier une couche cartographique de type sf en indiquant ces positions.</p>
 <p><strong>Exemple 1</strong> : En choisissant précisément la position des DOM</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">ze &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"ZE2010"</span>)</a></code></pre></div>
-<pre><code>## Reading layer `ZE2010_2019_CARTElette' from data source `C:\Users\Kim Antunez\AppData\Local\Temp\RtmpEdBkrJ\ZE2010_2019_CARTElette.shp' using driver `ESRI Shapefile'
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ze &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"ZE2010"</span>)</a></code></pre></div>
+<pre><code>## Reading layer `ZE2010_2019_CARTElette' from data source `C:\Users\Kim Antunez\AppData\Local\Temp\RtmpAXB6Zw\ZE2010_2019_CARTElette.shp' using driver `ESRI Shapefile'
 ## Simple feature collection with 322 features and 2 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: 99040 ymin: 5988964 xmax: 1242444 ymax: 7110479
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">#positions &lt;- positionner_DOM_glisser(objet=ze)</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#positions &lt;- positionner_DOM_grille()</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">positions &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">87279.52</span>,<span class="fl">6701636.96</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">204282.6</span>,<span class="fl">6497512.2</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">95610.91</span>,<span class="fl">6295414.72</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="dv">1015730</span>,<span class="dv">6093224</span>),<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">823583.9</span>,<span class="fl">6154353.7</span>))</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">ze_final &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> ze, <span class="dt">positions =</span> positions)</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(ze_final))</a></code></pre></div>
-<p><img src="CARTElette_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p><strong>Exemple 2</strong> : En choissant la position des DOM à partir de paramètres par défaut proposés par le package</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ze_final_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> ze, <span class="dt">positions_type=</span><span class="st">"topleft"</span>)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(ze_final_<span class="dv">2</span>))</a></code></pre></div>
+## bbox:           xmin: -5.141277 ymin: 40.28462 xmax: 9.559961 ymax: 51.08899
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#positions &lt;- positionner_DOM_glisser(objet=ze)</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#positions &lt;- positionner_DOM_grille(projection = st_crs(ze)$proj4string)</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">positions &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">5.074931</span>, <span class="fl">46.920490</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">6.768008</span>, <span class="fl">49.571175</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="fl">2.65836</span>, <span class="fl">45.08238</span>),</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">                  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>( <span class="fl">-6.195586</span>, <span class="fl">45.084970</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4.948049</span>, <span class="fl">41.193759</span>))</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">ze_final &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> ze, <span class="dt">positions =</span> positions)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(ze_final))</a></code></pre></div>
 <p><img src="CARTElette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p><strong>Exemple 3</strong> : En changeant les zooms des DOM et même en pouvant s’amuser à les faire pivoter !</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">reg &lt;-<span class="st"> </span><span class="kw"><a href="../reference/charger_carte.html">charger_carte</a></span>(<span class="dt">COG=</span><span class="dv">2019</span>,<span class="dt">nivsupra=</span><span class="st">"REG"</span>)</a></code></pre></div>
-<pre><code>## Reading layer `REG_2019_CARTElette' from data source `C:\Users\Kim Antunez\AppData\Local\Temp\RtmpEdBkrJ\REG_2019_CARTElette.shp' using driver `ESRI Shapefile'
-## Simple feature collection with 18 features and 2 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 99040 ymin: 5988964 xmax: 1242444 ymax: 7110479
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +units=m +no_defs</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">reg_final &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> reg, <span class="dt">positions_type =</span> <span class="st">"topleft"</span>,<span class="dt">rotations=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(pi<span class="op">/</span><span class="dv">2</span>,pi,pi<span class="op">/</span><span class="dv">2</span>,pi,<span class="dv">0</span>),<span class="dt">zooms=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(reg_final))</a></code></pre></div>
+<p><strong>Exemple 2</strong> : En choissant la position des DOM à partir de paramètres par défaut proposés par le package</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">ze_final_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> ze, <span class="dt">positions_type =</span> <span class="st">"topleft"</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(ze_final_<span class="dv">2</span>))</a></code></pre></div>
 <p><img src="CARTElette_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><strong>Exemple 3</strong> : En changeant les zooms des DOM et même en pouvant s’amuser à les faire pivoter !</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ze_final_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/deplacer_DOM.html">deplacer_DOM</a></span>(<span class="dt">objet =</span> ze, <span class="dt">positions_type =</span> <span class="st">"topleft"</span>,</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="dt">rotations =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">90</span>,<span class="dv">180</span>,<span class="dv">90</span>,<span class="op">-</span><span class="dv">90</span>,<span class="dv">0</span>), <span class="dt">zooms =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">0.5</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(ze_final_<span class="dv">3</span>))</a></code></pre></div>
+<p><img src="CARTElette_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Bonne découverte…!</p>
 </div>
   </div>

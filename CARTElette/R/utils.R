@@ -527,21 +527,85 @@ construire_grille <- function(){
 
  }
 
-#construire_grille()
+# vu après : le package riatelab/mapinsetr
+transformation_shp <- function(objet, rot=0, scale=1, shift=c(0,0)){
 
-transformation_shp <- function(objet, rot, scale, shift){
+  objet_final <- NULL
+  rot = -rot*pi/180 #conversion en radians
 
-  objet_g = sf::st_geometry(objet)
-  # plot(objet_g, border = 'grey')
-  suppressWarnings({ cntrd = sf::st_centroid(objet_g) })
-  rotation = function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
-  objet_g2 = (objet_g - cntrd) * rotation(rot) * scale + cntrd + shift
-  objet_g2 = sf::st_sf(objet %>% st_drop_geometry(), geometry = objet_g2, crs = sf::st_crs(objet))
-  # plot(objet_g2, add = TRUE)
-  # plot(cntrd + shift, col = 'red', add = TRUE, cex = .5)
-  return(objet_g2)
+  suppressWarnings({
+    centroide_general <- objet %>% summarize %>% st_centroid %>% st_coordinates() %>% as.vector()
+    centroides = st_centroid(objet) %>% st_coordinates
+  })
 
-  #Example
-  # toto <- transformation_shp(objet=st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE), rot=pi, scale=1, shift=c(1,2))
-  # plot(toto)
+  if(rot!=0){
+    rotation = function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
+    centroides_new_X = (centroides[,1] - centroide_general[1]) * cos(rot) +  (centroides[,2] - centroide_general[2]) * sin(rot) + centroide_general[1]
+    centroides_new_Y = - (centroides[,1] - centroide_general[1]) * sin(rot) +  (centroides[,2] - centroide_general[2]) * cos(rot) + centroide_general[2]
+    translations_rot <- data.frame(X = centroides_new_X - centroides[,1],Y = centroides_new_Y - centroides[,2])
+  }
+  if(scale!=1){
+    translations_scale <- data.frame(X = centroides[,1]-centroide_general[1],Y = centroides[,2]-centroide_general[2])
+  }
+
+
+  if(rot!=0 | scale!=1){
+    for(i in 1:nrow(objet)){ # #23 #setdiff(1:nrow(objet),23)
+
+      #tous
+      objet_i <- sf::st_geometry(dplyr::slice(objet,i))
+      suppressWarnings({centroide_i <- st_centroid(st_geometry(objet_i))})
+      objet_i2 <- objet_i
+
+      if(rot!=0){
+        objet_i2 = (objet_i2- centroide_i)* rotation(rot) +  centroide_i
+        objet_i2 = objet_i2+ as.vector(t(translations_rot[i,]))
+      }
+      if(scale!=1){
+        objet_i2 = (objet_i2-centroide_i)*scale + centroide_i
+        objet_i2 = objet_i2 - (1-scale)*as.vector(t(translations_scale[i,]))
+      }
+
+      # tous
+      objet_i2 = sf::st_sf(dplyr::slice(objet,i), geometry = objet_i2, crs = sf::st_crs(objet))
+      objet_final <- rbind(objet_final,objet_i2)
+    }
+
+  } else{
+    objet_final <- objet
+  }
+
+  if(shift[1]!=0 | shift[2]!=0){
+    objet_g = sf::st_geometry(objet_final)
+    #suppressWarnings({ cntrd = sf::st_centroid(objet_g) })
+    objet_final = objet_g  + shift
+    objet_final = sf::st_sf(objet %>% sf::st_drop_geometry(), geometry = objet_final, crs = sf::st_crs(objet))
+  }
+
+  objet_final <- objet_final %>% rmapshaper::ms_simplify(keep=1,keep_shapes=TRUE)
+
+  return(objet_final)
+
+  # #Example
+  # nc <- st_read(system.file("shape/nc.shp", package="sf"))
+  # nc_2 <- transformation_shp(objet=nc, rot=-70, scale=0.5, shift=c(0,0))
+  # plot(sf::st_geometry(nc ) )
+  # plot(sf::st_geometry(nc_2),col="red",add=TRUE)
+
+}
+
+
+
+creer_couche <- function(couche_communes, maille, annee){
+  couche <- couche_communes  %>%
+    dplyr::select(maille) %>%
+    dplyr::group_by(get(maille))  %>% summarize() %>%
+    setNames(nm=c(maille,colnames(.)[-1])) %>%
+    merge(.,get(paste0("libelles_supracom_",annee)) %>% filter(NIVGEO==maille) %>% select(-c(1,4)),by.x=maille,by.y="CODGEO",all.x=T) %>%
+    setNames(nm=c(maille,"nom","geometry"))
+  couche <- couche[!couche$nom=="Sans objet",]
+  if(maille=="AU2010"){
+    couche <- couche[!couche$AU2010%in%c("000","997","998"),]
+  }
+  return(couche)
 }

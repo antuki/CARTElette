@@ -25,19 +25,29 @@ Il est également très important de souligner que les couches cartographiques c
 * COG2017 et postérieurs : [ADMIN-EXPRESS](http://professionnels.ign.fr/adminexpress)
 * COG antérieurs : [GEOFLA](http://professionnels.ign.fr/geofla)
 
-Un package R est aussi adossé à ce repository. Il permet à ce stade de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités
+Un package R est aussi adossé à ce repository. Il permet de *charger la couche cartographique* adaptée à vos données en indiquant l'*année* du code officiel géographique (COG) ainsi que le *niveau géographique* (communal ou supra-communal) souhaités ainsi que de *déplacer les départements d'outre-mer*.
 
 
 Pour installer le package `CARTElette` et le charger dans R :
 
-```{r, fig.show='hold'}
+```{r, fig.show='hold',warning=FALSE,message=FALSE}
 #devtools::install_github("antuki/CARTElette/CARTElette@RPackage")
 library(CARTElette)
 ```
 
 ##  Charger une couche cartographique dans R
 
-Il vous est possible de charger la couche cartographique adaptée à vos données en indiquant l'année du code officiel géographique (COG) ainsi que le niveau géographique (communal ou supra-communal) souhaités. 
+
+Il vous est possible de charger la couche cartographique adaptée au niveau géographique (communal ou supra-communal) souhaité. Ces données sont **directement intégrées au package R** et ont donc, pour une question de taille de fichier, **une topologie simplifiée**. 
+
+```{r, fig.show='hold'}
+reg_sf_simplifiee <- charger_carte(nivsupra = "REG", geometrie_simplifiee = TRUE)
+par(mar = c(0,0,0,0))
+plot(sf::st_geometry(reg_sf_simplifiee))
+```
+
+
+Il vous est possible de charger davantage de données. En particulier, il vous est possible de préciser l'année du code officiel géographique (COG). Ces données possèdent une **topologie précise**  mais doivent par conséquent **être téléchargées**, par défaut dans un dossier temporaire, ce qui nécessite une connexion internet. 
 
 Les millésimes posibles sont de 2015 à l'année en cours.
 
@@ -55,9 +65,9 @@ Les niveaux géographiques possibles sont :
 
 La fonction renvoie une couche cartographique de type "sf" après avoir téléchargé le fichier sur votre disque (pas défaut dans un répertoire temporaire).
 
-```{r, fig.show='hold'}
-reg_sf <- charger_carte(COG=2016,nivsupra="REG")
-par(mar=c(0,0,0,0))
+```{r, fig.show='hold',warning=FALSE,message=FALSE}
+reg_sf <- charger_carte(COG = 2019, nivsupra = "REG", geometrie_simplifiee = FALSE)
+par(mar = c(0,0,0,0))
 plot(sf::st_geometry(reg_sf))
 ```
 
@@ -65,9 +75,9 @@ plot(sf::st_geometry(reg_sf))
 Il est possible de charger ou non les arrondissements municipaux grâce à l'option `enlever_PLM`. 
 
 ```{r, fig.show='hold', eval = FALSE}
-com_sf_sansPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=TRUE)
- com_sf_avecPLM <- charger_carte(COG=2019,nivsupra="COM",enlever_PLM=FALSE)
- par(mar=c(0,0,0,0))
+com_sf_sansPLM <- charger_carte(COG = 2019, nivsupra = "COM", enlever_PLM = TRUE)
+ com_sf_avecPLM <- charger_carte(COG = 2019, nivsupra = "COM", enlever_PLM = FALSE)
+ par(mar = c(0,0,0,0))
  library(sf)
  library(dplyr)
 ```
@@ -91,12 +101,11 @@ plot(st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 
 ##  Repositionner les DOM grâce à une grille
 
-Il vous est possible de modifier la position souhaitée des DOM à partir d'une grille géographique. 
+Il vous est possible de modifier la position souhaitée des DOM à partir d'une grille géographique. Indiquez dans `projection` la projection du fond de carte que vous souhaitez modifier. Elle s'obtient grâce à `st_crs(couche_sf)$proj4string`.
 
 ```{r, fig.show='hold', eval = FALSE}
-positions <- positionner_DOM_grille()
+positions <- positionner_DOM_grille(projection = st_crs(reg_sf)$proj4string)
 ```
-
 
 <img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_grille.png" width="100%">
 
@@ -106,10 +115,27 @@ Cette technique a l'avantage d'**aligner les DOM de manière exacte** contrairem
 
 Il vous est possible de modifier la position souhaitée des DOM en les glissant à partir d'une interface graphique.
 
-```{r, fig.show='hold', eval = FALSE}
-ze <- charger_carte(COG=2019,nivsupra="ZE2010")
-positions <- positionner_DOM_glisser(objet=ze)
+```{r, fig.show='hold', eval = FALSE,warning=FALSE,message=FALSE}
+ze <- charger_carte(COG = 2019, nivsupra = "ZE2010")
+positions <- positionner_DOM_glisser(objet = ze)
 positions
+```
+
+```
+$`1`
+[1] -5.074931 46.920490
+
+$`2`
+[1] -6.768008 49.571175
+
+$`3`
+[1] -2.65836 45.08238
+
+$`4`
+[1] -6.195586 45.084970
+
+$`5`
+[1]  4.948049 41.193759
 ```
 
 <img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser.png" width="100%">
@@ -128,8 +154,9 @@ Une fois les positions des DOM choisies grâce aux fonctions précédentes ou en
 ```{r, fig.show='hold'}
 ze <- charger_carte(COG=2019,nivsupra="ZE2010")
 #positions <- positionner_DOM_glisser(objet=ze)
-#positions <- positionner_DOM_grille()
-positions <- list(c(87279.52,6701636.96),c(204282.6,6497512.2),c(95610.91,6295414.72),c( 1015730,6093224),c(823583.9,6154353.7))
+#positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
+positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),
+                  c( -6.195586, 45.084970), c(4.948049, 41.193759))
 ze_final <- deplacer_DOM(objet = ze, positions = positions)
 par(mar=c(0,0,0,0))
 plot(sf::st_geometry(ze_final))
@@ -139,21 +166,19 @@ plot(sf::st_geometry(ze_final))
 
 
 ```{r, fig.show='hold'}
-ze_final_2 <- deplacer_DOM(objet = ze, positions_type="topleft")
-par(mar=c(0,0,0,0))
+ze_final_2 <- deplacer_DOM(objet = ze, positions_type = "topleft")
+par(mar = c(0,0,0,0))
 plot(sf::st_geometry(ze_final_2))
 ```
 
 **Exemple 3** : En changeant les zooms des DOM et même en pouvant s'amuser à les faire pivoter !
 
 ```{r, fig.show='hold'}
-reg <- charger_carte(COG=2019,nivsupra="REG")
-reg_final <- deplacer_DOM(objet = reg, positions_type = "topleft",rotations=c(pi/2,pi,pi/2,pi,0),zooms=c(2,1,1,1,1))
-par(mar=c(0,0,0,0))
-plot(sf::st_geometry(reg_final))
+ze_final_3 <- deplacer_DOM(objet = ze, positions_type = "topleft",
+rotations = c(90,180,90,-90,0), zooms = c(1,1,2,0.5,1))
+par(mar = c(0,0,0,0))
+plot(sf::st_geometry(ze_final_3))
 ```
-
-
 
 
 Bonne découverte...!
