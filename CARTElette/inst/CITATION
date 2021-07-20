@@ -1,0 +1,11 @@
+citHeader("Pour citer CARTElette dans vos productions, merci d'utiliser :")
+
+citEntry(entry = "manual",
+  author = "Kim Antunez",
+  title = "répertoire CARTElette",
+  url = "https://antuki.github.io/CARTElette/",
+  textVersion = "répertoire CARTELette https://antuki.github.io/CARTElette/"
+
+)
+
+
