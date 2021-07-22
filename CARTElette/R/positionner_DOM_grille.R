@@ -6,8 +6,7 @@
 #' La fonction renvoie une liste de coordonnées pour les futurs centroïdes
 #' @references
 #' \itemize{
-#' \item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
-#' \item{\href{http://professionnels.ign.fr/geofla}{couches cartographiques GEOFLA (IGN)}}}
+#' \item{\href{https://geoservices.ign.fr/adminexpress#telechargementCog}{couches cartographiques ADMIN-EXPRESS-COG (IGN)}}}
 #' @export
 #' @examples
 #' \dontrun{

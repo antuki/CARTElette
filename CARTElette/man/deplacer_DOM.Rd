@@ -5,9 +5,15 @@
 \alias{deplacer_DOM}
 \title{Modifier une couche cartographique de type sf en indiquant la position souhaitée des DOM}
 \usage{
-deplacer_DOM(objet, nivsupra = colnames(objet)[1],
-  positions_type = c("topleft"), positions = NULL, rotations = rep(0,
-  5), zooms = rep(1, 5), projection = st_crs(objet)$proj4string)
+deplacer_DOM(
+  objet,
+  nivsupra = colnames(objet)[1],
+  positions_type = c("topleft"),
+  positions = NULL,
+  rotations = rep(0, 5),
+  zooms = rep(1, 5),
+  projection = st_crs(objet)$proj4string
+)
 }
 \arguments{
 \item{objet}{est un fond de carte de la France (métropolitaine et 5 DOM) de type sf. Les niveaux géographiques possibles sont ceux du package CARTElette c'est-à-dire :
@@ -16,9 +22,12 @@ deplacer_DOM(objet, nivsupra = colnames(objet)[1],
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
 - "CV" : cantons-villes au 01/01/20XX
-- "ZE2010" : zones d'emploi 2010
-- "UU2010" : unités urbaines 2010
-- "AU2010" : aires urbaines 2010
+- "ZE2010" : zones d'emploi 2010 (avant 2020)
+- "ZE2020" : zones d'emploi 2020 (après 2020)
+- "UU2010" : unités urbaines 2010 (avant 2020)
+- "UU2020" : unités urbaines 2020 (après 2020)
+- "AU2010" : aires urbaines 2010 (avant 2020)
+- "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 - "BV2012" : bassins de vie 2012}
 
 \item{nivsupra}{est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
@@ -27,9 +36,12 @@ deplacer_DOM(objet, nivsupra = colnames(objet)[1],
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
 - "CV" : cantons-villes au 01/01/20XX
-- "ZE2010" : zones d'emploi 2010
-- "UU2010" : unités urbaines 2010
-- "AU2010" : aires urbaines 2010
+- "ZE2010" : zones d'emploi 2010 (avant 2020)
+- "ZE2020" : zones d'emploi 2020 (après 2020)
+- "UU2010" : unités urbaines 2010 (avant 2020)
+- "UU2020" : unités urbaines 2020 (après 2020)
+- "AU2010" : aires urbaines 2010 (avant 2020)
+- "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 - "BV2012" : bassins de vie 2012}
 
 \item{positions_type}{est un type de position proposé parmi les positions par défaut :
@@ -51,19 +63,19 @@ La fonction renvoie un objet de type sf
 }
 \examples{
 \dontrun{
-# Exemple 1 : choisir prÃ©cisÃ©ment la position des DOM
-ze <- charger_carte(COG=2019,nivsupra="ZE2010")
+# Exemple 1 : choisir precisement la position des DOM
+ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
 #positions <- positionner_DOM_glisser(objet=ze)
 #positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
 positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),
                  c( -6.195586, 45.084970), c(4.948049, 41.193759))
 ze_final <- deplacer_DOM(objet = ze, positions = positions)
-par(mar=c(0,0,0,0))
+par(mar=c(0, 0, 0, 0))
 plot(sf::st_geometry(ze_final))
 
-# Exemple 2 : choisir des positions de DOM par dÃ©faut
+# Exemple 2 : choisir des positions de DOM par defaut
 ze_final_2 <- deplacer_DOM(objet = ze, positions_type = "topleft")
-par(mar = c(0,0,0,0))
+par(mar = c(0, 0, 0, 0))
 plot(sf::st_geometry(ze_final_2))
 
 # Exemple 3 : changer les zooms des DOM et les faire pivoter
@@ -75,6 +87,5 @@ plot(sf::st_geometry(ze_final_3))
 }
 \references{
 \itemize{
-\item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
-\item{\href{http://professionnels.ign.fr/geofla}{couches cartographiques GEOFLA (IGN)}}}
+\item{\href{https://geoservices.ign.fr/adminexpress#telechargementCog}{couches cartographiques ADMIN-EXPRESS-COG (IGN)}}}
 }

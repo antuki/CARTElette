@@ -5,7 +5,9 @@
 \alias{data}
 \alias{COMMUNES}
 \title{Données contenues dans le package}
-\format{\code{sf}}
+\format{
+\code{sf}
+}
 \usage{
 COMMUNES
 }

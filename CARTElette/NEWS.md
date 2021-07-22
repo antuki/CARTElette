@@ -23,6 +23,18 @@
 * modification des fonctions pour tenir compte de plusieurs possibilités de projections suite à la nouvelle couche en WGS84
 * amélioration de  `transformation_shp()` pour pouvoir faire des rotations et zooms sur un ensemble de géométries et pas uniquement sur un polygone
 
+### mars 2020
+
+* intégration du COG2020 sans mettre à jour le package
 
 ## correction de bugs / optimisation du code
 
+# CARTElette 1.0.2
+
+## nouveautés
+
+### juillet 2021
+
+* intégration du COG2021 (nouvelle utilisation de ADMIN-EXPRESS-COG-CARTO plutôt que ADMIN-EXPRESS-COG) et mise à jour du package
+
+## correction de bugs / optimisation du code

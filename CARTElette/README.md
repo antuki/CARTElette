@@ -18,14 +18,14 @@ Un package R est aussi adossé à ce repository. Il permet de *charger la couche
 Pour installer le package `CARTElette` et le charger dans R :
  
 ```r 
-devtools::install_github("antuki/CARTElette/CARTElette@RPackage")
+remotes::install_github("antuki/CARTElette/CARTElette@RPackage")
 library(CARTElette)
 ```
 
-Un exemple en chargeant la couche "sf" des zones d'emplois françaises de 2016 : 
+Un exemple en chargeant la couche "sf" des zones d'emplois françaises de 2021 : 
 
 ```r
-ZE_sf <- charger_carte(COG=2016,nivsupra="ZE2010")
+ZE_sf <- charger_carte(COG = 2021,nivsupra = "ZE2020")
 par(mar=c(0,0,0,0))
 plot(sf::st_geometry(ZE_sf))
 ```

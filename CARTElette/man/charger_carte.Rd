@@ -5,9 +5,14 @@
 \alias{charger_carte}
 \title{Charger la couche cartographique adaptée à vos données}
 \usage{
-charger_carte(destfile = tempdir(), COG = annee_ref, nivsupra,
-  enlever_PLM = TRUE, donnees_insee = FALSE,
-  geometrie_simplifiee = FALSE)
+charger_carte(
+  destfile = tempdir(),
+  COG = annee_ref,
+  nivsupra,
+  enlever_PLM = TRUE,
+  donnees_insee = FALSE,
+  geometrie_simplifiee = FALSE
+)
 }
 \arguments{
 \item{destfile}{indique le "path" où sera enregistrée la couche cartographique téléchargée (4 fichiers shp,shx,prj et dbf). Par défaut vaut tempfile() (répertoire temporaire)}
@@ -20,10 +25,14 @@ charger_carte(destfile = tempdir(), COG = annee_ref, nivsupra,
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
 - "CV" : cantons-villes au 01/01/20XX
-- "ZE2010" : zones d'emploi 2010
-- "UU2010" : unités urbaines 2010
-- "AU2010" : aires urbaines 2010
-- "BV2012" : bassins de vie 2012}
+- "ZE2010" : zones d'emploi 2010 (avant 2020)
+- "ZE2020" : zones d'emploi 2020 (après 2020)
+- "UU2010" : unités urbaines 2010 (avant 2020)
+- "UU2020" : unités urbaines 2020 (après 2020)
+- "AU2010" : aires urbaines 2010 (avant 2020)
+- "AAV2020" : aires d'attraction des villes 2020 (après 2020)
+- "BV2012" : bassins de vie 2012
+Pour les COG plus anciens, regarder au cas par cas selon les années. Par exemple, str(table_supracom_2008)}
 
 \item{enlever_PLM}{vaut TRUE si on souhaite enlever de la carte les arrondissements municipaux de Paris, Lyon et Marseille si nivsupra="COM (fonctionne pour les millésimes postérieurs à 2019 en raison de modification des fichiers IGN). Par défaut, vaut annee_ref.}
 
@@ -37,33 +46,33 @@ Charger la couche cartographique adaptée à vos données en indiquant l'année 
 \details{
 La fonction renvoie une couche cartographique de type "sf"
 
-Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2019. \cr
+Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2011. \cr
 
-Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015, 2016, 2017, 2018 et 2019. \cr
+Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015 à 2021. \cr
 }
 \examples{
 ## Exemple 1
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- reg_sf <- charger_carte(COG=2019,nivsupra="REG", geometrie_simplifiee = FALSE)
- par(mar=c(0,0,0,0))
+ reg_sf <- charger_carte(COG = 2021, nivsupra = "REG", geometrie_simplifiee = FALSE)
+ par(mar = c(0, 0, 0, 0))
  plot(sf::st_geometry(reg_sf))
 }
 
 ## Exemple 2
 \dontrun{
-## Utilise les donnÃ©es directement prÃ©sentes dans le package
- reg_sf_simplifiee <- charger_carte(nivsupra="REG", geometrie_simplifiee = TRUE)
- par(mar=c(0,0,0,0))
+## Utilise les donnees directement presentes dans le package
+ reg_sf_simplifiee <- charger_carte(nivsupra = "REG", geometrie_simplifiee = TRUE)
+ par(mar = c(0, 0, 0, 0))
  plot(sf::st_geometry(reg_sf_simplifiee))
 }
 
 #' ## Exemple 3
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- com_sf_sansPLM <- charger_carte(COG = 2019, nivsupra = "COM",
+ com_sf_sansPLM <- charger_carte(COG = 2021, nivsupra = "COM",
  enlever_PLM = TRUE, geometrie_simplifiee = FALSE)
- com_sf_avecPLM <- charger_carte(COG = 2019, nivsupra="COM",
+ com_sf_avecPLM <- charger_carte(COG = 2021, nivsupra = "COM",
  enlever_PLM = FALSE, geometrie_simplifiee = FALSE)
  par(mar=c(0,0,0,0))
  library(sf)
@@ -75,6 +84,5 @@ Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivant
 }
 \references{
 \itemize{
-\item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
-\item{\href{http://professionnels.ign.fr/geofla}{couches cartographiques GEOFLA (IGN)}}}
+\item{\href{https://geoservices.ign.fr/adminexpress#telechargementCog}{couches cartographiques ADMIN-EXPRESS-COG (IGN)}}}
 }
