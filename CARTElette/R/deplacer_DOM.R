@@ -7,9 +7,12 @@
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
 #' - "CV" : cantons-villes au 01/01/20XX
-#' - "ZE2010" : zones d'emploi 2010
-#' - "UU2010" : unités urbaines 2010
-#' - "AU2010" : aires urbaines 2010
+#' - "ZE2010" : zones d'emploi 2010 (avant 2020)
+#' - "ZE2020" : zones d'emploi 2020 (après 2020)
+#' - "UU2010" : unités urbaines 2010 (avant 2020)
+#' - "UU2020" : unités urbaines 2020 (après 2020)
+#' - "AU2010" : aires urbaines 2010 (avant 2020)
+#' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 #' - "BV2012" : bassins de vie 2012
 #' @param nivsupra est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
 #' - "DEP" : départements
@@ -17,9 +20,12 @@
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
 #' - "CV" : cantons-villes au 01/01/20XX
-#' - "ZE2010" : zones d'emploi 2010
-#' - "UU2010" : unités urbaines 2010
-#' - "AU2010" : aires urbaines 2010
+#' - "ZE2010" : zones d'emploi 2010 (avant 2020)
+#' - "ZE2020" : zones d'emploi 2020 (après 2020)
+#' - "UU2010" : unités urbaines 2010 (avant 2020)
+#' - "UU2020" : unités urbaines 2020 (après 2020)
+#' - "AU2010" : aires urbaines 2010 (avant 2020)
+#' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 #' - "BV2012" : bassins de vie 2012
 #' @param positions_type est un type de position proposé parmi les positions par défaut :
 #' - "topleft" : DOM positionnés en haut à gauche
@@ -31,24 +37,23 @@
 #' La fonction renvoie un objet de type sf
 #' @references
 #' \itemize{
-#' \item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
-#' \item{\href{http://professionnels.ign.fr/geofla}{couches cartographiques GEOFLA (IGN)}}}
+#' \item{\href{https://geoservices.ign.fr/adminexpress#telechargementCog}{couches cartographiques ADMIN-EXPRESS-COG (IGN)}}}
 #' @export
 #' @examples
 #' \dontrun{
-#' # Exemple 1 : choisir précisément la position des DOM
-#' ze <- charger_carte(COG=2019,nivsupra="ZE2010")
+#' # Exemple 1 : choisir precisement la position des DOM
+#' ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
 #' #positions <- positionner_DOM_glisser(objet=ze)
 #' #positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
 #' positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),
 #'                  c( -6.195586, 45.084970), c(4.948049, 41.193759))
 #' ze_final <- deplacer_DOM(objet = ze, positions = positions)
-#' par(mar=c(0,0,0,0))
+#' par(mar=c(0, 0, 0, 0))
 #' plot(sf::st_geometry(ze_final))
 #'
-#' # Exemple 2 : choisir des positions de DOM par défaut
+#' # Exemple 2 : choisir des positions de DOM par defaut
 #' ze_final_2 <- deplacer_DOM(objet = ze, positions_type = "topleft")
-#' par(mar = c(0,0,0,0))
+#' par(mar = c(0, 0, 0, 0))
 #' plot(sf::st_geometry(ze_final_2))
 #'
 #' # Exemple 3 : changer les zooms des DOM et les faire pivoter
@@ -104,18 +109,36 @@ deplacer_DOM <- function(objet, nivsupra=colnames(objet)[1], positions_type=c("t
     fr_973 <- objet %>% filter(substr(ZE2010,1,2)=="03")
     fr_974 <- objet %>% filter(substr(ZE2010,1,2)=="04")
     fr_976 <- objet %>% filter(substr(ZE2010,1,2)=="06")
+  } else if(nivsupra=="ZE2020"){
+    fr_971 <- objet %>% filter(substr(ZE2020,1,2)=="01")
+    fr_972 <- objet %>% filter(substr(ZE2020,1,2)=="02")
+    fr_973 <- objet %>% filter(substr(ZE2020,1,2)=="03")
+    fr_974 <- objet %>% filter(substr(ZE2020,1,2)=="04")
+    fr_976 <- objet %>% filter(substr(ZE2020,1,2)=="06")
   } else if(nivsupra=="AU2010"){
     fr_971 <- objet %>% filter(substr(AU2010,1,2)=="9A")
     fr_972 <- objet %>% filter(substr(AU2010,1,2)=="9B")
     fr_973 <- objet %>% filter(substr(AU2010,1,2)=="9C")
     fr_974 <- objet %>% filter(substr(AU2010,1,2)=="9D")
     fr_976 <- objet %>% filter(substr(AU2010,1,2)=="9F")
+  } else if(nivsupra=="AAV2020"){
+    fr_971 <- objet %>% filter(substr(AAV2020,1,2)=="9A")
+    fr_972 <- objet %>% filter(substr(AAV2020,1,2)=="9B")
+    fr_973 <- objet %>% filter(substr(AAV2020,1,2)=="9C")
+    fr_974 <- objet %>% filter(substr(AAV2020,1,2)=="9D")
+    fr_976 <- objet %>% filter(substr(AAV2020,1,2)=="9F")
   } else if(nivsupra=="UU2010"){
     fr_971 <- objet %>% filter(substr(UU2010,1,2)=="9A")
     fr_972 <- objet %>% filter(substr(UU2010,1,2)=="9B")
     fr_973 <- objet %>% filter(substr(UU2010,1,2)=="9C")
     fr_974 <- objet %>% filter(substr(UU2010,1,2)=="9D")
     fr_976 <- objet %>% filter(substr(UU2010,1,2)=="9F")
+  } else if(nivsupra=="UU2020"){
+    fr_971 <- objet %>% filter(substr(UU2020,1,2)=="9A")
+    fr_972 <- objet %>% filter(substr(UU2020,1,2)=="9B")
+    fr_973 <- objet %>% filter(substr(UU2020,1,2)=="9C")
+    fr_974 <- objet %>% filter(substr(UU2020,1,2)=="9D")
+    fr_976 <- objet %>% filter(substr(UU2020,1,2)=="9F")
   } else if(nivsupra=="DEP"){
     fr_971 <- objet %>% filter(DEP=="971")
     fr_972 <- objet %>% filter(DEP=="972")
@@ -139,20 +162,19 @@ deplacer_DOM <- function(objet, nivsupra=colnames(objet)[1], positions_type=c("t
     fr_972 <- objet %>% filter(substr(BV2012,1,3)=="972")
     fr_973 <- objet %>% filter(substr(BV2012,1,3)=="973")
     fr_974 <- objet %>% filter(substr(BV2012,1,3)=="974")
-    fr_976 <- objet %>% filter(substr(BV2012,1,3)=="976")
+    fr_976 <- NULL
   } else if(nivsupra=="ARR"){
     fr_971 <- objet %>% filter(substr(ARR,1,3)=="971")
     fr_972 <- objet %>% filter(substr(ARR,1,3)=="972")
     fr_973 <- objet %>% filter(substr(ARR,1,3)=="973")
     fr_974 <- objet %>% filter(substr(ARR,1,3)=="974")
-    #fr_976 <- objet %>% filter(substr(ARR,1,3)=="976") #pas pour Mayotte
+    fr_976 <- NULL
   } else if(nivsupra=="EPCI"){
-    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2019 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
-    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2019 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
-    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2019 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
-    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2019 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
-    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2019 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
-
+    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
+    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
+    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
+    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
+    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
   }
 
   dom <- c(fr_971 %>% select(nivsupra) %>% st_drop_geometry() %>% pull,

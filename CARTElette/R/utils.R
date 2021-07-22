@@ -532,10 +532,12 @@ transformation_shp <- function(objet, rot=0, scale=1, shift=c(0,0)){
 
   objet_final <- NULL
   rot = -rot*pi/180 #conversion en radians
-
-  suppressWarnings({
-    centroide_general <- objet %>% summarize %>% st_centroid %>% st_coordinates() %>% as.vector()
-    centroides = st_centroid(objet) %>% st_coordinates
+  
+  suppressMessages({
+    suppressWarnings({
+      centroide_general <- objet %>% summarize %>% st_centroid %>% st_coordinates() %>% as.vector()
+      centroides = st_centroid(objet) %>% st_coordinates
+    })
   })
 
   if(rot!=0){
@@ -597,12 +599,14 @@ transformation_shp <- function(objet, rot=0, scale=1, shift=c(0,0)){
 
 
 creer_couche <- function(couche_communes, maille, annee){
+  suppressMessages({
   couche <- couche_communes  %>%
     dplyr::select(maille) %>%
     dplyr::group_by(get(maille))  %>% summarize() %>%
     setNames(nm=c(maille,colnames(.)[-1])) %>%
     merge(.,get(paste0("libelles_supracom_",annee)) %>% filter(NIVGEO==maille) %>% select(-c(1,4)),by.x=maille,by.y="CODGEO",all.x=T) %>%
     setNames(nm=c(maille,"nom","geometry"))
+  })
   couche <- couche[!couche$nom=="Sans objet",]
   if(maille=="AU2010"){
     couche <- couche[!couche$AU2010%in%c("000","997","998"),]

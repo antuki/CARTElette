@@ -14,7 +14,7 @@ Description: Ce package permet de charger dans R les couches cartographiques fra
 License: GPL-3 + files LICENSE and ../couches_carto/LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 URL: http://github.com/antuki/CARTElette/CARTElette
 BugReports: http://github.com/antuki/CARTElette/issues
 Depends: 

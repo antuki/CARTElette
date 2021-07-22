@@ -113,7 +113,6 @@ exporter_couche <- function(couche_communes, maille,annee){
 }
 
 liste_mailles <- c("DEP","EPCI","ARR" ,"CV","ZE2020","UU2020","AAV2020","BV2012","REG")
-liste_mailles <- c("ZE2020","UU2020","AAV2020")
 
 for(maille in liste_mailles){
   exporter_couche(COM_CARTElette, maille,annee)

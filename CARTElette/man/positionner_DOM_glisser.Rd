@@ -14,9 +14,12 @@ positionner_DOM_glisser(objet, nivsupra = colnames(objet)[1])
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
 - "CV" : cantons-villes au 01/01/20XX
-- "ZE2010" : zones d'emploi 2010
-- "UU2010" : unités urbaines 2010
-- "AU2010" : aires urbaines 2010
+- "ZE2010" : zones d'emploi 2010 (avant 2020)
+- "ZE2020" : zones d'emploi 2020 (après 2020)
+- "UU2010" : unités urbaines 2010 (avant 2020)
+- "UU2020" : unités urbaines 2020 (après 2020)
+- "AU2010" : aires urbaines 2010 (avant 2020)
+- "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 - "BV2012" : bassins de vie 2012}
 
 \item{nivsupra}{est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
@@ -25,9 +28,12 @@ positionner_DOM_glisser(objet, nivsupra = colnames(objet)[1])
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
 - "CV" : cantons-villes au 01/01/20XX
-- "ZE2010" : zones d'emploi 2010
-- "UU2010" : unités urbaines 2010
-- "AU2010" : aires urbaines 2010
+- "ZE2010" : zones d'emploi 2010 (avant 2020)
+- "ZE2020" : zones d'emploi 2020 (après 2020)
+- "UU2010" : unités urbaines 2010 (avant 2020)
+- "UU2020" : unités urbaines 2020 (après 2020)
+- "AU2010" : aires urbaines 2010 (avant 2020)
+- "AAV2020" : aires d'attraction des villes 2020 (après 2020)
 - "BV2012" : bassins de vie 2012}
 }
 \description{
@@ -38,13 +44,12 @@ La fonction renvoie une liste de coordonnées pour les futurs centroïdes
 }
 \examples{
 \dontrun{
-ze <- charger_carte(COG=2019,nivsupra="ZE2010")
+ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
 positions <- positionner_DOM_glisser(objet=ze)
 positions
 }
 }
 \references{
 \itemize{
-\item{\href{http://professionnels.ign.fr/adminexpress}{couches cartographiques Admin-Express (IGN)}}
-\item{\href{http://professionnels.ign.fr/geofla}{couches cartographiques GEOFLA (IGN)}}}
+\item{\href{https://geoservices.ign.fr/adminexpress#telechargementCog}{couches cartographiques ADMIN-EXPRESS-COG (IGN)}}}
 }
