@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -62,7 +65,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -94,8 +97,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/antuki/CARTElette">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="http://github.com/antuki/CARTElette/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,16 +115,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/antuki/CARTElette/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='http://github.com/antuki/CARTElette/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="cartelette-1-0-0" class="section level1">
-<h1 class="page-header">
-<a href="#cartelette-1-0-0" class="anchor"></a>CARTElette 1.0.0</h1>
-<div id="nouveautes" class="section level2">
+    <div id="cartelette-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#cartelette-100" class="anchor"></a>CARTElette 1.0.0</h1>
+<div id="nouveautés" class="section level2">
 <h2 class="hasAnchor">
-<a href="#nouveautes" class="anchor"></a>nouveautés</h2>
+<a href="#nouveaut%C3%A9s" class="anchor"></a>nouveautés</h2>
 <div id="mai-2019" class="section level3">
 <h3 class="hasAnchor">
 <a href="#mai-2019" class="anchor"></a>mai 2019</h3>
@@ -131,9 +134,9 @@
 </li>
 </ul>
 </div>
-<div id="decembre-2019" class="section level3">
+<div id="décembre-2019" class="section level3">
 <h3 class="hasAnchor">
-<a href="#decembre-2019" class="anchor"></a>décembre 2019</h3>
+<a href="#d%C3%A9cembre-2019" class="anchor"></a>décembre 2019</h3>
 <ul>
 <li>
 <code>loadMap()</code> est renommée <code><a href="../reference/charger_carte.html">charger_carte()</a></code>
@@ -144,12 +147,12 @@
 </div>
 </div>
 </div>
-    <div id="cartelette-1-0-1" class="section level1">
-<h1 class="page-header">
-<a href="#cartelette-1-0-1" class="anchor"></a>CARTElette 1.0.1</h1>
-<div id="nouveautes-1" class="section level2">
+    <div id="cartelette-101" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.1">
+<a href="#cartelette-101" class="anchor"></a>CARTElette 1.0.1</h1>
+<div id="nouveautés-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#nouveautes-1" class="anchor"></a>nouveautés</h2>
+<a href="#nouveaut%C3%A9s-1" class="anchor"></a>nouveautés</h2>
 <div id="mars-2020" class="section level3">
 <h3 class="hasAnchor">
 <a href="#mars-2020" class="anchor"></a>mars 2020</h3>
@@ -160,22 +163,44 @@
 <li>amélioration de <code>transformation_shp()</code> pour pouvoir faire des rotations et zooms sur un ensemble de géométries et pas uniquement sur un polygone</li>
 </ul>
 </div>
+<div id="mars-2020-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#mars-2020-1" class="anchor"></a>mars 2020</h3>
+<ul>
+<li>intégration du COG2020 sans mettre à jour le package</li>
+</ul>
 </div>
-<div id="correction-de-bugs-optimisation-du-code" class="section level2">
+</div>
+<div id="correction-de-bugs--optimisation-du-code" class="section level2">
 <h2 class="hasAnchor">
-<a href="#correction-de-bugs-optimisation-du-code" class="anchor"></a>correction de bugs / optimisation du code</h2>
+<a href="#correction-de-bugs--optimisation-du-code" class="anchor"></a>correction de bugs / optimisation du code</h2>
+</div>
+</div>
+    <div id="cartelette-102" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.2">
+<a href="#cartelette-102" class="anchor"></a>CARTElette 1.0.2</h1>
+<div id="nouveautés-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#nouveaut%C3%A9s-2" class="anchor"></a>nouveautés</h2>
+<div id="juillet-2021" class="section level3">
+<h3 class="hasAnchor">
+<a href="#juillet-2021" class="anchor"></a>juillet 2021</h3>
+<ul>
+<li>intégration du COG2021 (nouvelle utilisation de ADMIN-EXPRESS-COG-CARTO plutôt que ADMIN-EXPRESS-COG) et mise à jour du package</li>
+</ul>
+</div>
+</div>
+<div id="correction-de-bugs--optimisation-du-code-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#correction-de-bugs--optimisation-du-code-1" class="anchor"></a>correction de bugs / optimisation du code</h2>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#cartelette-1-0-0">1.0.0</a></li>
-        <li><a href="#cartelette-1-0-1">1.0.1</a></li>
-      </ul>
-    </div>
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -183,11 +208,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by  antuki.</p>
+  <p>Developed by Kim Antunez.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
