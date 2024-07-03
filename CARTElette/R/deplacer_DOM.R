@@ -6,27 +6,31 @@
 #' - "REG" : régions
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
-#' - "CV" : cantons-villes au 01/01/20XX
+#' - "CV" : cantons-villes au 01/01/20XX (avant 2024)
+#' - "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 #' - "ZE2010" : zones d'emploi 2010 (avant 2020)
 #' - "ZE2020" : zones d'emploi 2020 (après 2020)
 #' - "UU2010" : unités urbaines 2010 (avant 2020)
 #' - "UU2020" : unités urbaines 2020 (après 2020)
 #' - "AU2010" : aires urbaines 2010 (avant 2020)
 #' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-#' - "BV2012" : bassins de vie 2012
+#' - "BV2012" : bassins de vie 2012 (avant 2023)
+#' - "BV2022" : bassins de vie 2012 (après 2023)
 #' @param nivsupra est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
 #' - "DEP" : départements
 #' - "REG" : régions
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
-#' - "CV" : cantons-villes au 01/01/20XX
+#' - "CV" : cantons-villes au 01/01/20XX (avant 2024)
+#' - "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 #' - "ZE2010" : zones d'emploi 2010 (avant 2020)
 #' - "ZE2020" : zones d'emploi 2020 (après 2020)
 #' - "UU2010" : unités urbaines 2010 (avant 2020)
 #' - "UU2020" : unités urbaines 2020 (après 2020)
 #' - "AU2010" : aires urbaines 2010 (avant 2020)
 #' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-#' - "BV2012" : bassins de vie 2012
+#' - "BV2012" : bassins de vie 2012 (avant 2023)
+#' - "BV2022" : bassins de vie 2012 (après 2023)
 #' @param positions_type est un type de position proposé parmi les positions par défaut :
 #' - "topleft" : DOM positionnés en haut à gauche
 #' @param positions est une liste de positions pour les DOM (à indiquer dans l'ordre :  Guadeloupe, Martinique, Guyane, Réunion et Mayotte) . Il peut s'agir par exemple de résultats des fonctions positionner_DOM_grille ou encore positionner_DOM_glisser. Par défaut vaut NULL (cf. positions_type)
@@ -42,7 +46,7 @@
 #' @examples
 #' \dontrun{
 #' # Exemple 1 : choisir precisement la position des DOM
-#' ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
+#' ze <- charger_carte(COG = 2024, nivsupra = "ZE2020")
 #' #positions <- positionner_DOM_glisser(objet=ze)
 #' #positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
 #' positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),
@@ -157,11 +161,23 @@ deplacer_DOM <- function(objet, nivsupra=colnames(objet)[1], positions_type=c("t
     fr_973 <- objet %>% filter(substr(CV,1,3)=="973")
     fr_974 <- objet %>% filter(substr(CV,1,3)=="974")
     fr_976 <- objet %>% filter(substr(CV,1,3)=="976")
+  } else if(nivsupra=="CANOV"){
+    fr_971 <- objet %>% filter(substr(CANOV,1,3)=="971")
+    fr_972 <- objet %>% filter(substr(CANOV,1,3)=="972")
+    fr_973 <- objet %>% filter(substr(CANOV,1,3)=="973")
+    fr_974 <- objet %>% filter(substr(CANOV,1,3)=="974")
+    fr_976 <- objet %>% filter(substr(CANOV,1,3)=="976")
   } else if(nivsupra=="BV2012"){
     fr_971 <- objet %>% filter(substr(BV2012,1,3)=="971")
     fr_972 <- objet %>% filter(substr(BV2012,1,3)=="972")
     fr_973 <- objet %>% filter(substr(BV2012,1,3)=="973")
     fr_974 <- objet %>% filter(substr(BV2012,1,3)=="974")
+    fr_976 <- NULL
+  } else if(nivsupra=="BV2022"){
+    fr_971 <- objet %>% filter(substr(BV2022,1,3)=="971")
+    fr_972 <- objet %>% filter(substr(BV2022,1,3)=="972")
+    fr_973 <- objet %>% filter(substr(BV2022,1,3)=="973")
+    fr_974 <- objet %>% filter(substr(BV2022,1,3)=="974")
     fr_976 <- NULL
   } else if(nivsupra=="ARR"){
     fr_971 <- objet %>% filter(substr(ARR,1,3)=="971")
@@ -170,11 +186,11 @@ deplacer_DOM <- function(objet, nivsupra=colnames(objet)[1], positions_type=c("t
     fr_974 <- objet %>% filter(substr(ARR,1,3)=="974")
     fr_976 <- NULL
   } else if(nivsupra=="EPCI"){
-    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
-    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
-    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
-    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
-    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
+    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
+    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
+    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
+    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
+    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
   }
 
   dom <- c(fr_971 %>% select(nivsupra) %>% st_drop_geometry() %>% pull,
@@ -227,6 +243,8 @@ deplacer_DOM <- function(objet, nivsupra=colnames(objet)[1], positions_type=c("t
 # DEP : 3 seuls chiffres : 971...
 # COM : 3 premiers chiffres : 971
 # CV : 3 premiers chiffres 971...
+# CANOV : 3 premiers chiffres 971...
 # BV2012 : 3 premiers chiffres 971
+# BV2022 : 3 premiers chiffres 971
 # ARR : 3 premiers chiffres 971... SAUF MAYOTTE
 # EPCI : pas de critère facile, passer par table_supracom

@@ -1,7 +1,7 @@
 Package: CARTElette
 Type: Package
 Title: Création de couches cartographiques à partir du code officiel géographique (COG) et des couches IGN
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     c(person(given = "Kim",
              family = "Antunez",
@@ -14,7 +14,6 @@ Description: Ce package permet de charger dans R les couches cartographiques fra
 License: GPL-3 + files LICENSE and ../couches_carto/LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
 URL: http://github.com/antuki/CARTElette/CARTElette
 BugReports: http://github.com/antuki/CARTElette/issues
 Depends: 
@@ -39,3 +38,4 @@ Imports:
     rmapshaper
 VignetteBuilder: knitr
 Remotes: antuki/COGugaison
+RoxygenNote: 7.2.3

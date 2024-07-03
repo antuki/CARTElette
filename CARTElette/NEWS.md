@@ -37,4 +37,12 @@
 
 * intégration du COG2021 (nouvelle utilisation de ADMIN-EXPRESS-COG-CARTO plutôt que ADMIN-EXPRESS-COG) et mise à jour du package
 
+# CARTElette 1.0.3
+
+## nouveautés
+
+### juillet 2024
+
+* intégration des COG2021, 2022 et 2023 et mise à jour du package
+
 ## correction de bugs / optimisation du code

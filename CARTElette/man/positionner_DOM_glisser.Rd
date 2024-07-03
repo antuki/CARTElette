@@ -13,28 +13,32 @@ positionner_DOM_glisser(objet, nivsupra = colnames(objet)[1])
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012}
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)}
 
 \item{nivsupra}{est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
 - "DEP" : départements
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012}
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)}
 }
 \description{
 Indiquer la position souhaitée des DOM en les glissant à partir d'une interface graphique

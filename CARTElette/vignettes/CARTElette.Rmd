@@ -57,22 +57,24 @@ Les niveaux géographiques possibles sont :
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012
- 
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)
+
  Pour les COG plus anciens, regarder au cas par cas selon les années. Par exemple, str(table_supracom_2008)
 
 
 La fonction renvoie une couche cartographique de type "sf" après avoir téléchargé le fichier sur votre disque (pas défaut dans un répertoire temporaire).
 
 ```{r, fig.show='hold',warning=FALSE,message=FALSE}
-reg_sf <- charger_carte(COG = 2021, nivsupra = "REG", geometrie_simplifiee = FALSE)
+reg_sf <- charger_carte(COG = 2024, nivsupra = "REG", geometrie_simplifiee = FALSE)
 par(mar = c(0,0,0,0))
 plot(sf::st_geometry(reg_sf))
 ```
@@ -81,8 +83,8 @@ plot(sf::st_geometry(reg_sf))
 Il est possible de charger ou non les arrondissements municipaux grâce à l'option `enlever_PLM`. 
 
 ```{r, fig.show='hold', eval = FALSE}
-com_sf_sansPLM <- charger_carte(COG = 2021, nivsupra = "COM", enlever_PLM = TRUE)
- com_sf_avecPLM <- charger_carte(COG = 2021, nivsupra = "COM", enlever_PLM = FALSE)
+com_sf_sansPLM <- charger_carte(COG = 2024, nivsupra = "COM", enlever_PLM = TRUE)
+ com_sf_avecPLM <- charger_carte(COG = 2024, nivsupra = "COM", enlever_PLM = FALSE)
  par(mar = c(0,0,0,0))
  library(sf)
  library(dplyr)
@@ -122,7 +124,7 @@ Cette technique a l'avantage d'**aligner les DOM de manière exacte** contrairem
 Il vous est possible de modifier la position souhaitée des DOM en les glissant à partir d'une interface graphique.
 
 ```{r, fig.show='hold', eval = FALSE,warning=FALSE,message=FALSE}
-ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
+ze <- charger_carte(COG = 2024, nivsupra = "ZE2020")
 positions <- positionner_DOM_glisser(objet = ze)
 positions
 ```
@@ -158,7 +160,7 @@ Une fois les positions des DOM choisies grâce aux fonctions précédentes ou en
 **Exemple 1** : En choisissant précisément la position des DOM 
 
 ```{r, fig.show='hold'}
-ze <- charger_carte(COG = 2021, nivsupra = "ZE2020")
+ze <- charger_carte(COG = 2024, nivsupra = "ZE2020")
 #positions <- positionner_DOM_glisser(objet=ze)
 #positions <- positionner_DOM_grille(projection = st_crs(ze)$proj4string)
 positions <- list(c(-5.074931, 46.920490), c(-6.768008, 49.571175), c(-2.65836, 45.08238),

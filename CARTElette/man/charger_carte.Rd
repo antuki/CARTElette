@@ -24,14 +24,16 @@ charger_carte(
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)
 Pour les COG plus anciens, regarder au cas par cas selon les années. Par exemple, str(table_supracom_2008)}
 
 \item{enlever_PLM}{vaut TRUE si on souhaite enlever de la carte les arrondissements municipaux de Paris, Lyon et Marseille si nivsupra="COM (fonctionne pour les millésimes postérieurs à 2019 en raison de modification des fichiers IGN). Par défaut, vaut annee_ref.}
@@ -46,15 +48,15 @@ Charger la couche cartographique adaptée à vos données en indiquant l'année 
 \details{
 La fonction renvoie une couche cartographique de type "sf"
 
-Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2011. \cr
+Le code officiel géographique le plus récent du package est actuellement celui au 01/01/2024. \cr
 
-Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015 à 2021. \cr
+Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivants : 2015 à 2024. \cr
 }
 \examples{
 ## Exemple 1
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- reg_sf <- charger_carte(COG = 2021, nivsupra = "REG", geometrie_simplifiee = FALSE)
+ reg_sf <- charger_carte(COG = 2024, nivsupra = "REG", geometrie_simplifiee = FALSE)
  par(mar = c(0, 0, 0, 0))
  plot(sf::st_geometry(reg_sf))
 }
@@ -70,9 +72,9 @@ Les millésimes des COG qui peuvent être utilisés sont à ce stade les suivant
 #' ## Exemple 3
 \dontrun{
 ## Traitement long a tourner (telecharge les fichiers dans tempdir())
- com_sf_sansPLM <- charger_carte(COG = 2021, nivsupra = "COM",
+ com_sf_sansPLM <- charger_carte(COG = 2024, nivsupra = "COM",
  enlever_PLM = TRUE, geometrie_simplifiee = FALSE)
- com_sf_avecPLM <- charger_carte(COG = 2021, nivsupra = "COM",
+ com_sf_avecPLM <- charger_carte(COG = 2024, nivsupra = "COM",
  enlever_PLM = FALSE, geometrie_simplifiee = FALSE)
  par(mar=c(0,0,0,0))
  library(sf)

@@ -6,27 +6,31 @@
 #' - "REG" : régions
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
-#' - "CV" : cantons-villes au 01/01/20XX
+#' - "CV" : cantons-villes au 01/01/20XX (avant 2024)
+#' - "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 #' - "ZE2010" : zones d'emploi 2010 (avant 2020)
 #' - "ZE2020" : zones d'emploi 2020 (après 2020)
 #' - "UU2010" : unités urbaines 2010 (avant 2020)
 #' - "UU2020" : unités urbaines 2020 (après 2020)
 #' - "AU2010" : aires urbaines 2010 (avant 2020)
 #' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-#' - "BV2012" : bassins de vie 2012
+#' - "BV2012" : bassins de vie 2012 (avant 2023)
+#' - "BV2022" : bassins de vie 2012 (après 2023)
 #' @param nivsupra est une chaîne de caractères qui indique le nom du niveau supra-communal concerné. Cette chaîne de caractère doit également correspondre à la colonne de l'objet sf contenant les codes géographiques. Il peut s'agir de :
 #' - "DEP" : départements
 #' - "REG" : régions
 #' - "EPCI" : EPCI au 01/01/20XX
 #' - "ARR" : arrondissements au 01/01/20XX
-#' - "CV" : cantons-villes au 01/01/20XX
+#' - "CV" : cantons-villes au 01/01/20XX (avant 2024)
+#' - "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 #' - "ZE2010" : zones d'emploi 2010 (avant 2020)
 #' - "ZE2020" : zones d'emploi 2020 (après 2020)
 #' - "UU2010" : unités urbaines 2010 (avant 2020)
 #' - "UU2020" : unités urbaines 2020 (après 2020)
 #' - "AU2010" : aires urbaines 2010 (avant 2020)
 #' - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-#' - "BV2012" : bassins de vie 2012
+#' - "BV2012" : bassins de vie 2012 (avant 2023)
+#' - "BV2022" : bassins de vie 2012 (après 2023)
 #' @details
 #' La fonction renvoie une liste de coordonnées pour les futurs centroïdes
 #' @references
@@ -106,11 +110,23 @@ positionner_DOM_glisser <- function(objet, nivsupra=colnames(objet)[1]){
     fr_973 <- objet %>% filter(substr(CV,1,3)=="973")
     fr_974 <- objet %>% filter(substr(CV,1,3)=="974")
     fr_976 <- objet %>% filter(substr(CV,1,3)=="976")
+  } else if(nivsupra=="CANOV"){
+    fr_971 <- objet %>% filter(substr(CANOV,1,3)=="971")
+    fr_972 <- objet %>% filter(substr(CANOV,1,3)=="972")
+    fr_973 <- objet %>% filter(substr(CANOV,1,3)=="973")
+    fr_974 <- objet %>% filter(substr(CANOV,1,3)=="974")
+    fr_976 <- objet %>% filter(substr(CANOV,1,3)=="976")
   } else if(nivsupra=="BV2012"){
     fr_971 <- objet %>% filter(substr(BV2012,1,3)=="971")
     fr_972 <- objet %>% filter(substr(BV2012,1,3)=="972")
     fr_973 <- objet %>% filter(substr(BV2012,1,3)=="973")
     fr_974 <- objet %>% filter(substr(BV2012,1,3)=="974")
+    fr_976 <- NULL
+  } else if(nivsupra=="BV2022"){
+    fr_971 <- objet %>% filter(substr(BV2022,1,3)=="971")
+    fr_972 <- objet %>% filter(substr(BV2022,1,3)=="972")
+    fr_973 <- objet %>% filter(substr(BV2022,1,3)=="973")
+    fr_974 <- objet %>% filter(substr(BV2022,1,3)=="974")
     fr_976 <- NULL
   } else if(nivsupra=="ARR"){
     fr_971 <- objet %>% filter(substr(ARR,1,3)=="971")
@@ -119,11 +135,11 @@ positionner_DOM_glisser <- function(objet, nivsupra=colnames(objet)[1]){
     fr_974 <- objet %>% filter(substr(ARR,1,3)=="974")
     fr_976 <- NULL
   } else if(nivsupra=="EPCI"){
-    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
-    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
-    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
-    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
-    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2021 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
+    fr_971 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="01") %>% select(EPCI) %>% pull())
+    fr_972 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="02") %>% select(EPCI) %>% pull())
+    fr_973 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="03") %>% select(EPCI) %>% pull())
+    fr_974 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="04") %>% select(EPCI) %>% pull())
+    fr_976 <- objet %>% filter(EPCI %in%  COGugaison::table_supracom_2024 %>% filter(REG=="06") %>% select(EPCI) %>% pull())
   }
 
   fr_971 <- fr_971 %>% summarize
