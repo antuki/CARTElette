@@ -35,6 +35,7 @@ jobs:
 
       - name: Install CARTElette (sinon bug vignette)
         run: |
+          Rscript -e 'install.packages(c("remotes"))'
           Rscript -e 'remotes::install_github("antuki/CARTElette/CARTElette@RPackage")'
 
       - name: Build site
