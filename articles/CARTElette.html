@@ -173,7 +173,7 @@ répertoire temporaire).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reg_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"REG"</span>, geometrie_simplifiee <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Reading layer `REG_2024_CARTElette' from data source </span></span>
-<span><span class="co">##   `/private/var/folders/h9/l1shxhdd69nct08ylzq0n6q00000gn/T/RtmpeAuN8l/REG_2024_CARTElette.shp' </span></span>
+<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/RtmpcBZG4M/REG_2024_CARTElette.shp' </span></span>
 <span><span class="co">##   using driver `ESRI Shapefile'</span></span>
 <span><span class="co">## Simple feature collection with 18 features and 2 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
@@ -195,11 +195,11 @@ grâce à l’option <code>enlever_PLM</code>.</p>
 <p>Avec les arrondissements :</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">com_sf_avecPLM</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">INSEE_COM</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"75"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF2.png" width="300"></p>
+<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/images/IDF2.png" width="300"></p>
 <p>Sans les arrondissements :</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">com_sf_sansPLM</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">INSEE_COM</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"75"</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF1.png" width="300"></p>
+<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/images/IDF1.png" width="300"></p>
 </div>
 <div class="section level2">
 <h2 id="repositionner-les-dom-grâce-à-une-grille">Repositionner les DOM grâce à une grille<a class="anchor" aria-label="anchor" href="#repositionner-les-dom-gr%C3%A2ce-%C3%A0-une-grille"></a>
@@ -210,7 +210,7 @@ la projection du fond de carte que vous souhaitez modifier. Elle
 s’obtient grâce à <code>st_crs(couche_sf)$proj4string</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/positionner_DOM_grille.html">positionner_DOM_grille</a></span><span class="op">(</span>projection <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="va">reg_sf</span><span class="op">)</span><span class="op">$</span><span class="va">proj4string</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_grille.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_grille.png" width="100%"></p>
 <p>Cette technique a l’avantage d’<strong>aligner les DOM de manière
 exacte</strong> contrairement à la technique du “glissage” ci-dessous
 qui rend le positionnement plus approximatif.</p>
@@ -238,8 +238,8 @@ $`4`
 
 $`5`
 [1]  4.948049 41.193759</code></pre>
-<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser.png" width="100%"></p>
-<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser_2.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_glisser.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_glisser_2.png" width="100%"></p>
 <p>Cette technique a l’avantage de fournir <strong>un aperçu en direct
 du nouveau positionnement des DOM</strong> contrairement à la technique
 de la “grille” ci-dessus qui ne le permet pas.</p>
@@ -256,7 +256,7 @@ des DOM</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Reading layer `ZE2020_2024_CARTElette' from data source </span></span>
-<span><span class="co">##   `/private/var/folders/h9/l1shxhdd69nct08ylzq0n6q00000gn/T/RtmpeAuN8l/ZE2020_2024_CARTElette.shp' </span></span>
+<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/RtmpcBZG4M/ZE2020_2024_CARTElette.shp' </span></span>
 <span><span class="co">##   using driver `ESRI Shapefile'</span></span>
 <span><span class="co">## Simple feature collection with 306 features and 2 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
