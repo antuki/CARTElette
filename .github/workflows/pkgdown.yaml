@@ -33,8 +33,12 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - name: Install CARTElette (sinon bug vignette)
+        run: |
+          Rscript -e 'remotes::install_github("antuki/CARTElette/CARTElette@RPackage")'
+
       - name: Build site
-        run: pkgdown::build_site_github_pages(pkg = "./CARTElette", new_process = TRUE, install = TRUE)
+        run: pkgdown::build_site_github_pages(pkg = "./CARTElette", new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
