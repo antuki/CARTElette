@@ -95,14 +95,14 @@ Avec les arrondissements :
  plot(st_geometry(com_sf_avecPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 ```
 
-<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF2.png" width="300">
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/images/IDF2.png" width="300">
 
 Sans les arrondissements : 
 ```{r, fig.show='hold', eval = FALSE}
 plot(st_geometry(com_sf_sansPLM %>% filter(substr(INSEE_COM,1,2)%in%c("75")) ))
 ```
 
-<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/IDF1.png" width="300">
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/images/IDF1.png" width="300">
 
  
 
@@ -115,7 +115,7 @@ Il vous est possible de modifier la position souhaitée des DOM à partir d'une 
 positions <- positionner_DOM_grille(projection = st_crs(reg_sf)$proj4string)
 ```
 
-<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_grille.png" width="100%">
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_grille.png" width="100%">
 
 Cette technique a l'avantage d'**aligner les DOM de manière exacte** contrairement à la technique du "glissage" ci-dessous qui rend le positionnement plus approximatif. 
 
@@ -146,9 +146,9 @@ $`5`
 [1]  4.948049 41.193759
 ```
 
-<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser.png" width="100%">
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_glisser.png" width="100%">
 
-<img src="https://raw.githubusercontent.com/antuki/CARTElette/master/man/img_vignette/DOM_glisser_2.png" width="100%">
+<img src="https://raw.githubusercontent.com/antuki/CARTElette/images/DOM_glisser_2.png" width="100%">
 
 Cette technique a l'avantage de fournir **un aperçu en direct du nouveau positionnement des DOM**   contrairement à la technique de la "grille" ci-dessus qui ne le permet pas.
 
