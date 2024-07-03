@@ -1,7 +1,7 @@
 Package: CARTElette
 Type: Package
 Title: Création de couches cartographiques à partir du code officiel géographique (COG) et des couches IGN
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     c(person(given = "Kim",
              family = "Antunez",

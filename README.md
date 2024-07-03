@@ -1,4 +1,4 @@
-# CARTElette <img src="man/figures/logo.png" width=200 align="right" />
+# CARTElette <img src="CARTElette/man/figures/logo.png" width=200 align="right" />
 
 *Afin de mieux connaître les utilisateurs des packages COGugaison et CARTElette et de mieux répondre à vos besoins, merci de répondre à cette rapide enquête en ligne* : https://antuki.github.io/2019/11/08/opinion_package/
 
@@ -10,7 +10,7 @@ Il s'agit désormais de créer des couches cartographiques (communales et supra-
 
 Il est également très important de souligner que les couches cartographiques constituées ici sont réalisées à partir des couches publiées par l'IGN et sont modifiées par un programme R (déplacement des DOM afin de constituer des couches à visée statistique).
 
-* COG2021 : [ADMIN-EXPRESS-COG-CARTO](https://geoservices.ign.fr/adminexpress#telechargementCog) (IGN) également disponible sur [data.gouv](https://www.data.gouv.fr/fr/datasets/admin-express/)
+* à partir du COG2021 : [ADMIN-EXPRESS-COG-CARTO](https://geoservices.ign.fr/adminexpress#telechargementCog) (IGN) également disponible sur [data.gouv](https://www.data.gouv.fr/fr/datasets/admin-express/)
 * COG2017 à 2020 : [ADMIN-EXPRESS-COG](https://geoservices.ign.fr/adminexpress#telechargementCog) (IGN) également disponible sur [data.gouv](https://www.data.gouv.fr/fr/datasets/admin-express/)
 * COG antérieurs : GEOFLA (IGN)
 
