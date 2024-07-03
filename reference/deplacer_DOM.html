@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -75,14 +75,16 @@
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012</p></dd>
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)</p></dd>
 
 
 <dt>nivsupra</dt>
@@ -91,14 +93,16 @@
 - "REG" : régions
 - "EPCI" : EPCI au 01/01/20XX
 - "ARR" : arrondissements au 01/01/20XX
-- "CV" : cantons-villes au 01/01/20XX
+- "CV" : cantons-villes au 01/01/20XX (avant 2024)
+- "CANOV" : cantons-ou-villes au 01/01/20XX (après 2024)
 - "ZE2010" : zones d'emploi 2010 (avant 2020)
 - "ZE2020" : zones d'emploi 2020 (après 2020)
 - "UU2010" : unités urbaines 2010 (avant 2020)
 - "UU2020" : unités urbaines 2020 (après 2020)
 - "AU2010" : aires urbaines 2010 (avant 2020)
 - "AAV2020" : aires d'attraction des villes 2020 (après 2020)
-- "BV2012" : bassins de vie 2012</p></dd>
+- "BV2012" : bassins de vie 2012 (avant 2023)
+- "BV2022" : bassins de vie 2012 (après 2023)</p></dd>
 
 
 <dt>positions_type</dt>
@@ -136,7 +140,7 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Exemple 1 : choisir precisement la position des DOM</span></span></span>
-<span class="r-in"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">#positions &lt;- positionner_DOM_glisser(objet=ze)</span></span></span>
 <span class="r-in"><span><span class="co">#positions &lt;- positionner_DOM_grille(projection = st_crs(ze)$proj4string)</span></span></span>
 <span class="r-in"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5.074931</span>, <span class="fl">46.920490</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">6.768008</span>, <span class="fl">49.571175</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.65836</span>, <span class="fl">45.08238</span><span class="op">)</span>,</span></span>

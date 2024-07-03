@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -75,31 +75,7 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div class="section level1">
-<div class="page-header"><h1 id="cartelette-">CARTElette <img src="reference/figures/logo.png" width="200" align="right"><a class="anchor" aria-label="anchor" href="#cartelette-"></a>
-</h1></div>
-<p><em>Afin de mieux connaître les utilisateurs des packages COGugaison et CARTElette et de mieux répondre à vos besoins, merci de répondre à cette rapide enquête en ligne</em> : <a href="https://antuki.github.io/2019/11/08/opinion_package/" class="external-link uri">https://antuki.github.io/2019/11/08/opinion_package/</a></p>
-<p>Le découpage des territoires français, en particulier les communes, n’est pas un phénomène immuable. Chaque année certaines communes changent de codes, ou bien de nom, fusionnent ou encore se divisent. Certains périmètres supra-communaux changent également, comme celui des cantons qui a été récemment redéfini. C’est à l’Insee que revient le suivi de ces changements afin d’établir chaque année le code officiel géographique (COG).</p>
-<p>Ce répertoire vient en complément du package R <a href="https://github.com/antuki/COGugaison" class="external-link">antuki/COGugaison</a> qui a pour objectif de manipuler des données communales produites à différents millésimes et de les agréger à différents niveaux supra-communaux.</p>
-<p>Il s’agit désormais de créer des couches cartographiques (communales et supra-communales) qui correspondent à la situation du découpage des territoires français (communes et niveaux supra-communaux, France et Outre-mer) au 01 janvier de chaque année (date de référence du code officiel géographique).</p>
-<p>Il est également très important de souligner que les couches cartographiques constituées ici sont réalisées à partir des couches publiées par l’IGN et sont modifiées par un programme R (déplacement des DOM afin de constituer des couches à visée statistique).</p>
-<ul>
-<li>COG2017 et postérieurs : <a href="http://professionnels.ign.fr/adminexpress" class="external-link">ADMIN-EXPRESS</a>
-</li>
-<li>COG antérieurs : <a href="http://professionnels.ign.fr/geofla" class="external-link">GEOFLA</a>
-</li>
-</ul>
-<p>Un package R est aussi adossé à ce repository. Il permet de <em>charger la couche cartographique</em> adaptée à vos données en indiquant l’<em>année</em> du code officiel géographique (COG) ainsi que le <em>niveau géographique</em> (communal ou supra-communal) souhaités ainsi que de <em>déplacer les départements d’outre-mer</em>.</p>
-<p>Pour installer le package <code>CARTElette</code> et le charger dans R :</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"antuki/CARTElette/CARTElette@RPackage"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/antuki/CARTElette/CARTElette" class="external-link">CARTElette</a></span><span class="op">)</span></span></code></pre></div>
-<p>Un exemple en chargeant la couche “sf” des zones d’emplois françaises de 2021 :</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ZE_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>,nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">ZE_sf</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</div>
+Ce package permet de charger dans R les couches cartographiques françaises adaptées à vos données (millésime + niveau géographique adapté à un certain code officiel géographique).
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

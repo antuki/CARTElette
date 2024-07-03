@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">CARTElette</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
       </span>
     </div>
 
@@ -154,14 +154,16 @@ dans un dossier temporaire, ce qui nécessite une connexion internet.</p>
 <li>“REG” : régions</li>
 <li>“EPCI” : EPCI au 01/01/20XX</li>
 <li>“ARR” : arrondissements au 01/01/20XX</li>
-<li>“CV” : cantons-villes au 01/01/20XX</li>
+<li>“CV” : cantons-villes au 01/01/20XX (avant 2024)</li>
+<li>“CANOV” : cantons-ou-villes au 01/01/20XX (après 2024)</li>
 <li>“ZE2010” : zones d’emploi 2010 (avant 2020)</li>
 <li>“ZE2020” : zones d’emploi 2020 (après 2020)</li>
 <li>“UU2010” : unités urbaines 2010 (avant 2020)</li>
 <li>“UU2020” : unités urbaines 2020 (après 2020)</li>
 <li>“AU2010” : aires urbaines 2010 (avant 2020)</li>
 <li>“AAV2020” : aires d’attraction des villes 2020 (après 2020)</li>
-<li>“BV2012” : bassins de vie 2012</li>
+<li>“BV2012” : bassins de vie 2012 (avant 2023)</li>
+<li>“BV2022” : bassins de vie 2012 (après 2023)</li>
 </ul>
 <p>Pour les COG plus anciens, regarder au cas par cas selon les années.
 Par exemple, str(table_supracom_2008)</p>
@@ -169,14 +171,14 @@ Par exemple, str(table_supracom_2008)</p>
 avoir téléchargé le fichier sur votre disque (pas défaut dans un
 répertoire temporaire).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">reg_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"REG"</span>, geometrie_simplifiee <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Reading layer `REG_2021_CARTElette' from data source </span></span>
-<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/RtmpCSg3fU/REG_2021_CARTElette.shp' </span></span>
+<code class="sourceCode R"><span><span class="va">reg_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"REG"</span>, geometrie_simplifiee <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Reading layer `REG_2024_CARTElette' from data source </span></span>
+<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/Rtmpiq5kQT/REG_2024_CARTElette.shp' </span></span>
 <span><span class="co">##   using driver `ESRI Shapefile'</span></span>
 <span><span class="co">## Simple feature collection with 18 features and 2 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">## Dimension:     XY</span></span>
-<span><span class="co">## Bounding box:  xmin: -5.141241 ymin: 40.26843 xmax: 9.560094 ymax: 51.08899</span></span>
+<span><span class="co">## Bounding box:  xmin: -5.141277 ymin: 40.26848 xmax: 9.560094 ymax: 51.08899</span></span>
 <span><span class="co">## Geodetic CRS:  WGS 84</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -185,8 +187,8 @@ répertoire temporaire).</p>
 <p>Il est possible de charger ou non les arrondissements municipaux
 grâce à l’option <code>enlever_PLM</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">com_sf_sansPLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"COM"</span>, enlever_PLM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span> <span class="va">com_sf_avecPLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"COM"</span>, enlever_PLM <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">com_sf_sansPLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"COM"</span>, enlever_PLM <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span> <span class="va">com_sf_avecPLM</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"COM"</span>, enlever_PLM <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
@@ -219,7 +221,7 @@ qui rend le positionnement plus approximatif.</p>
 <p>Il vous est possible de modifier la position souhaitée des DOM en les
 glissant à partir d’une interface graphique.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span>
 <span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/positionner_DOM_glisser.html">positionner_DOM_glisser</a></span><span class="op">(</span>objet <span class="op">=</span> <span class="va">ze</span><span class="op">)</span></span>
 <span><span class="va">positions</span></span></code></pre></div>
 <pre><code>$`1`
@@ -252,14 +254,14 @@ positions.</p>
 <p><strong>Exemple 1</strong> : En choisissant précisément la position
 des DOM</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2021</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Reading layer `ZE2020_2021_CARTElette' from data source </span></span>
-<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/RtmpCSg3fU/ZE2020_2021_CARTElette.shp' </span></span>
+<code class="sourceCode R"><span><span class="va">ze</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/charger_carte.html">charger_carte</a></span><span class="op">(</span>COG <span class="op">=</span> <span class="fl">2024</span>, nivsupra <span class="op">=</span> <span class="st">"ZE2020"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Reading layer `ZE2020_2024_CARTElette' from data source </span></span>
+<span><span class="co">##   `/private/var/folders/sx/mf6nj_sn1ll2crpml02qjgbr0000gn/T/Rtmpiq5kQT/ZE2020_2024_CARTElette.shp' </span></span>
 <span><span class="co">##   using driver `ESRI Shapefile'</span></span>
 <span><span class="co">## Simple feature collection with 306 features and 2 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
 <span><span class="co">## Dimension:     XY</span></span>
-<span><span class="co">## Bounding box:  xmin: -5.141241 ymin: 40.26843 xmax: 9.560094 ymax: 51.08899</span></span>
+<span><span class="co">## Bounding box:  xmin: -5.141277 ymin: 40.26848 xmax: 9.560094 ymax: 51.08899</span></span>
 <span><span class="co">## Geodetic CRS:  WGS 84</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#positions &lt;- positionner_DOM_glisser(objet=ze)</span></span>
